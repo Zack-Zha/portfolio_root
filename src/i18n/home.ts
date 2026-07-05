@@ -29,7 +29,7 @@ export const t = {
     phoneLabel: { en: 'Phone (WeChat)', zh: '电话（微信）' } as const,
     emailLabel: { en: 'E-mail', zh: '邮箱' } as const,
     educationLabel: { en: 'Education', zh: '教育经历' } as const,
-    education: { en: 'MDes in ISD, PolyU', zh: '香港理工大学 交互设计硕士' } as const,
+    education: { en: 'Master of Design in ISD, PolyU', zh: '香港理工大学 交互设计硕士' } as const,
     desktopLine1: {
       en: 'Current: Tencent — WeChat Design Team',
       zh: '就职：腾讯微信设计团队 - 体验设计师',
