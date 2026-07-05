@@ -2,17 +2,19 @@
 import { explorations } from '@/data/explorations';
 ---
 
-<div class="flex flex-col gap-[56px] px-[80px]">
+<div class="flex flex-col gap-[56px] px-[80px] mt-[40px]">
   <div data-reveal class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
-  <div data-reveal-group="220" class="flex items-center gap-[16px] flex-nowrap">
+  <div data-reveal-group="220" class="self-stretch inline-flex justify-start items-start gap-[25px]">
     {explorations.map((item) => (
-      <div data-reveal class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
-        <img
-          src={item.image}
-          alt={item.alt}
-          class={`w-full object-cover${item.isCircle ? ' rounded-full' : ''}`}
-        />
-        <div class="text-center text-[20px] leading-[1.3em]">{item.title}</div>
+      <div data-reveal class="w-[570px] inline-flex flex-col justify-center items-start gap-[24px]">
+        <img src={item.image} alt={item.alt} class="w-[570px] h-[640px] object-cover" />
+        <div class="self-stretch inline-flex items-center gap-[16px]">
+          <img src={item.logo} alt={item.logoAlt} class="w-[96px] h-[96px] object-contain" />
+          <div class="flex-1 flex flex-col items-start gap-[8px]">
+            <div class="self-stretch text-black/80 text-[24px] font-medium font-['Geist'] capitalize leading-[1.3em]">{item.title}</div>
+            <div class="self-stretch text-black/40 text-[20px] font-normal font-['Geist'] leading-[1.3em]">{item.description}</div>
+          </div>
+        </div>
       </div>
     ))}
   </div>
