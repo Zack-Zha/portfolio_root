@@ -43,6 +43,7 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     transition:
       opacity var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)),
       transform var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1));
+    transition-delay: var(--reveal-delay, 0ms);
   }
 
   [data-reveal][data-reveal-no-blur].is-revealed {
