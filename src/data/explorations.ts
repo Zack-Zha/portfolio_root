@@ -6,6 +6,7 @@ export interface Exploration {
   logo: string;
   alt: string;
   logoAlt: string;
+  href?: string;
 }
 
 export const explorations: Exploration[] = [
@@ -17,6 +18,7 @@ export const explorations: Exploration[] = [
     logo: '/assets/logo_huawei.png',
     alt: 'Calien - My capstone project at PolyU',
     logoAlt: 'Huawei logo',
+    href: '#',
   },
   {
     id: 'aura',
@@ -26,6 +28,7 @@ export const explorations: Exploration[] = [
     logo: '/assets/logo_aura.png',
     alt: 'Aura: Social Community for Prime Time',
     logoAlt: 'Aura logo',
+    href: '#',
   },
   {
     id: 'mindcharge',
@@ -35,5 +38,6 @@ export const explorations: Exploration[] = [
     logo: '/assets/logo_mindcharge.png',
     alt: 'Mindcharge: AI Mental Wellness Coach',
     logoAlt: 'Mindcharge logo',
+    href: '#',
   },
 ];

@@ -5,37 +5,47 @@ import ProjectInfoRow from '@/components/common/ProjectInfoRow.astro';
 
 <div data-reveal-group="220" class="flex px-[80px] justify-between items-center self-stretch">
   <!-- System -->
-  <div data-reveal class="w-[1146px] flex flex-col gap-[56px] shrink-0">
+  <div data-reveal class="w-[1146px] shrink-0">
     <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">System.</div>
-    <div class="flex flex-col gap-[24px]">
-      <div class="w-[1146px] h-[644px] overflow-hidden rounded-[56px]">
-        <img src="/assets/system.png" alt="WeChat Shop B-End Design System"
-          class="w-[1146px] h-[644px] object-cover" />
+    <a
+      href="/work/wechat-store"
+      class="block w-full mt-[56px] cursor-pointer transition-transform duration-[400ms] ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-[0.985] active:scale-[0.965]"
+    >
+      <div class="flex flex-col gap-[24px]">
+        <div class="w-[1146px] h-[644px] overflow-hidden rounded-[56px]">
+          <img src="/assets/system.png" alt="WeChat Shop B-End Design System"
+            class="w-[1146px] h-[644px] object-cover" />
+        </div>
+        <ProjectInfoRow
+          logo="/assets/logo_wechatshop.png"
+          logoAlt="WeChat Shop logo"
+          title="WeChat Shop B-End Design System"
+          description="Establishing unified notification design guidelines for WeChat Shop&rsquo;s merchant platform, helping users manage complex messages with clarity and ease."
+          logoClass="rounded-[100px]"
+        />
       </div>
-      <ProjectInfoRow
-        logo="/assets/logo_wechatshop.png"
-        logoAlt="WeChat Shop logo"
-        title="WeChat Shop B-End Design System"
-        description="Establishing unified notification design guidelines for WeChat Shop&rsquo;s merchant platform, helping users manage complex messages with clarity and ease."
-        logoClass="rounded-[100px]"
-      />
-    </div>
+    </a>
   </div>
   <!-- Research -->
-  <div data-reveal class="w-[532px] flex flex-col gap-[56px] shrink-0">
+  <div data-reveal class="w-[532px] shrink-0">
     <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Research.</div>
-    <div class="flex flex-col gap-[24px]">
-      <div class="w-[532px] h-[644px] overflow-hidden rounded-[56px]">
-        <img src="/assets/research.png" alt="The SUPER UX Model - Midea"
-          class="w-[532px] h-[644px] object-cover" />
+    <a
+      href="#"
+      class="block w-full mt-[56px] cursor-pointer transition-transform duration-[400ms] ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-[0.985] active:scale-[0.965]"
+    >
+      <div class="flex flex-col gap-[24px]">
+        <div class="w-[532px] h-[644px] overflow-hidden rounded-[56px]">
+          <img src="/assets/research.png" alt="The SUPER UX Model - Midea"
+            class="w-[532px] h-[644px] object-cover" />
+        </div>
+        <ProjectInfoRow
+          logo="/assets/logo_midea.png"
+          logoAlt="Midea logo"
+          title="The SUPER UX Model"
+          description="A measurement framework to help Midea quantify and improve home appliance UX."
+          logoClass="rounded-[1000px] bg-[#0092D7]"
+        />
       </div>
-      <ProjectInfoRow
-        logo="/assets/logo_midea.png"
-        logoAlt="Midea logo"
-        title="The SUPER UX Model"
-        description="A measurement framework to help Midea quantify and improve home appliance UX."
-        logoClass="rounded-[1000px] bg-[#0092D7]"
-      />
-    </div>
+    </a>
   </div>
 </div>

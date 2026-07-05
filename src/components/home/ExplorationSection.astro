@@ -5,16 +5,21 @@ import ProjectInfoRow from '@/components/common/ProjectInfoRow.astro';
 
 <div class="flex flex-col gap-[56px] px-[80px] mt-[40px]">
   <div data-reveal class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
-  <div data-reveal-group="220" class="self-stretch inline-flex justify-start items-start gap-[25px]">
+  <div data-reveal-group="220" class="self-stretch inline-flex justify-start items-start gap-[40px]">
     {explorations.map((item) => (
-      <div data-reveal class="w-[570px] inline-flex flex-col justify-center items-start gap-[24px]">
-        <img src={item.image} alt={item.alt} class="w-[570px] h-[640px] object-cover" />
-        <ProjectInfoRow
-          logo={item.logo}
-          logoAlt={item.logoAlt}
-          title={item.title}
-          description={item.description}
-        />
+      <div data-reveal class="flex-1">
+        <a
+          href={item.href ?? '#'}
+          class="w-full inline-flex flex-col justify-center items-start gap-[24px] cursor-pointer transition-transform duration-[400ms] ease-[cubic-bezier(.34,1.56,.64,1)] hover:scale-[0.985] active:scale-[0.965]"
+        >
+          <img src={item.image} alt={item.alt} class="self-stretch h-[628.77px] object-cover" />
+          <ProjectInfoRow
+            logo={item.logo}
+            logoAlt={item.logoAlt}
+            title={item.title}
+            description={item.description}
+          />
+        </a>
       </div>
     ))}
   </div>
