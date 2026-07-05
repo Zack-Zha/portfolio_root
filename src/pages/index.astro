@@ -49,6 +49,16 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     filter: none !important;
   }
 
+  /*
+   * Reset-transform mode — after animation completes, remove transform entirely.
+   * translateY(0) still creates a compositor layer that can pollute backdrop-filter.
+   * Use reveal-complete to switch to transform: none.
+   */
+  [data-reveal][data-reveal-reset-transform].reveal-complete {
+    transform: none !important;
+    filter: none !important;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     [data-reveal] {
       transform: translateY(0);
@@ -82,8 +92,13 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     if (el.dataset.revealDelay !== undefined) {
       delayMs = parseInt(el.dataset.revealDelay, 10);
     }
+
+    const durationMs = el.dataset.revealDuration !== undefined
+      ? parseInt(el.dataset.revealDuration, 10)
+      : 1150;
+
     if (el.dataset.revealDuration !== undefined) {
-      el.style.setProperty('--reveal-duration', el.dataset.revealDuration + 'ms');
+      el.style.setProperty('--reveal-duration', durationMs + 'ms');
     }
     if (el.dataset.revealY !== undefined) {
       el.style.setProperty('--reveal-y', el.dataset.revealY + 'px');
@@ -93,6 +108,14 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     }
     el.style.setProperty('--reveal-delay', delayMs + 'ms');
     el.classList.add('is-revealed');
+
+    // After animation finishes, clean up transform for reset-transform elements
+    // so they don't retain a compositor layer that pollutes backdrop-filter
+    if (el.hasAttribute('data-reveal-reset-transform')) {
+      setTimeout(function () {
+        el.classList.add('reveal-complete');
+      }, delayMs + durationMs + 80);
+    }
   }
 
   const observer = new IntersectionObserver(
