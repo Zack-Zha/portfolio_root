@@ -1,16 +1,23 @@
 ---
-// MobileHomeContent.astro — Mobile homepage content (navbar rendered separately for fixed positioning)
+// MobileHomeContent.astro — Mobile homepage content
 import MobileHero from './MobileHero.astro';
 import MobileProductSection from './MobileProductSection.astro';
 import MobileSystemSection from './MobileSystemSection.astro';
 import MobileExplorationSection from './MobileExplorationSection.astro';
 import MobileFooter from './MobileFooter.astro';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <main class="flex flex-col pt-[144px]">
-  <MobileHero />
-  <MobileProductSection />
-  <MobileSystemSection />
-  <MobileExplorationSection />
-  <MobileFooter />
+  <MobileHero locale={locale} />
+  <MobileProductSection locale={locale} />
+  <MobileSystemSection locale={locale} />
+  <MobileExplorationSection locale={locale} />
+  <MobileFooter locale={locale} />
 </main>

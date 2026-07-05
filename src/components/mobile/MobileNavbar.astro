@@ -1,5 +1,14 @@
 ---
 // MobileNavbar.astro — Fixed navbar with glass icon buttons
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const name = l(t.mobileNav.name, locale);
 ---
 
 <div class="mobile-navbar-wrapper w-full">
@@ -13,7 +22,7 @@
       </span>
     </button>
 
-    <div id="mobile-nav-name" class="text-black text-[32px] font-geist font-medium">Zha Chengke</div>
+    <div id="mobile-nav-name" class="text-black text-[32px] font-geist font-medium">{name}</div>
 
     <!-- Right icon button: bottom glass layer + top surface layer -->
     <button class="relative w-[96px] h-[96px] rounded-[120px]">

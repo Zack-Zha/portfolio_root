@@ -1,20 +1,28 @@
 ---
 import MobileProductCard from './MobileProductCard.astro';
 import { projects } from '@/data/projects';
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <div class="flex flex-col">
   <div class="px-[32px] py-[24px]">
-    <div data-reveal class="text-black/40 text-[56px] font-geist font-medium leading-[1.3]">Product.</div>
+    <div data-reveal class="text-black/40 text-[56px] font-geist font-medium leading-[1.3]">{l(t.sections.product, locale)}</div>
   </div>
   <div class="self-stretch pt-[32px] pb-[48px] flex justify-center">
     <div class="flex flex-col items-center gap-[120px]">
       {projects.map((p, index) => (
         <MobileProductCard
-          title={p.title}
+          title={p.title[locale]}
           href={p.href}
           image={p.image}
-          alt={p.alt}
+          alt={p.alt[locale]}
           cardId={p.id}
           glowDelay={index * 1400}
         />

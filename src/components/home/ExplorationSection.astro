@@ -1,10 +1,18 @@
 ---
 import { explorations } from '@/data/explorations';
 import ProjectInfoRow from '@/components/common/ProjectInfoRow.astro';
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <div class="flex flex-col gap-[56px] px-[80px] mt-[40px]">
-  <div data-reveal class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
+  <div data-reveal class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">{l(t.sections.exploration, locale)}</div>
   <div data-reveal-group="220" class="self-stretch inline-flex justify-start items-start gap-[40px]">
     {explorations.map((item) => (
       <div data-reveal class="flex-1">
@@ -12,12 +20,12 @@ import ProjectInfoRow from '@/components/common/ProjectInfoRow.astro';
           href={item.href ?? '#'}
           class="w-full inline-flex flex-col justify-center items-start gap-[24px] cursor-pointer transition-transform duration-[220ms] ease-[cubic-bezier(.2,0,.2,1)] hover:scale-[0.992] active:scale-[0.982]"
         >
-          <img src={item.image} alt={item.alt} class="self-stretch h-[628.77px] object-cover" />
+          <img src={item.image} alt={item.alt[locale]} class="self-stretch h-[628.77px] object-cover" />
           <ProjectInfoRow
             logo={item.logo}
             logoAlt={item.logoAlt}
-            title={item.title}
-            description={item.description}
+            title={item.title[locale]}
+            description={item.description[locale]}
           />
         </a>
       </div>

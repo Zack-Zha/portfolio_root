@@ -1,12 +1,22 @@
 ---
 // Footer.astro — Site footer
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const tagline = l(t.footer.tagline, locale);
+const name = l(t.footer.name, locale);
 ---
 
 <footer class="w-full">
   <div class="w-full flex items-center justify-between px-20 py-6">
-    <div class="text-[20px] leading-[1.3em]">Chengke Zha &copy; <span id="copyright-year">2025</span></div>
+    <div class="text-[20px] leading-[1.3em]">{name} &copy; <span id="copyright-year">2025</span></div>
     <div class="flex items-center gap-[64px]">
-      <div class="text-[20px] leading-[1.3em]">Ready to build something that shapes us? Let's talk.</div>
+      <div class="text-[20px] leading-[1.3em]">{tagline}</div>
     </div>
   </div>
 </footer>

@@ -12,13 +12,14 @@ export interface Props {
   title?: string;
   showAmbient?: boolean;
   isHome?: boolean;
+  locale?: 'en' | 'zh';
 }
 
-const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props;
+const { title = 'Portfolio', showAmbient = false, isHome = false, locale = 'en' } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="cn" class="scroll-smooth">
+<html lang={locale === 'zh' ? 'zh-CN' : 'en'} class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +28,7 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
   <body>
     <!-- Desktop layout -->
     <div id="desktop-layout" class="desktop-layout">
-      <Header />
+      <Header locale={locale} />
 
       <div id="desktop-scale-host" class="desktop-scale-host">
         <div id="desktop-stage" class="desktop-stage">
@@ -35,7 +36,7 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
 
           <main class="desktop-canvas font-geist text-black relative z-10 flex flex-col gap-[120px] shrink-0">
             <slot />
-            <Footer />
+            <Footer locale={locale} />
           </main>
         </div>
       </div>
@@ -45,12 +46,12 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
     <div id="mobile-layout" class="mobile-layout">
       <div class="mobile-navbar-host">
         <div class="mobile-navbar-stage">
-          {isHome && <MobileNavbar />}
+          {isHome && <MobileNavbar locale={locale} />}
         </div>
       </div>
       <div id="mobile-scale-host" class="mobile-scale-host">
         <div id="mobile-stage" class="mobile-stage">
-          {isHome ? <MobileHomeContent /> : <MobilePlaceholder />}
+          {isHome ? <MobileHomeContent locale={locale} /> : <MobilePlaceholder />}
         </div>
       </div>
     </div>

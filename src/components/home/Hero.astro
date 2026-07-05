@@ -1,5 +1,37 @@
 ---
 import ContactButtons from './ContactButtons.astro';
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
+
+// Hero text
+const hey = l(t.hero.hey, locale);
+const heroName = l(t.hero.name, locale);
+const taglineOpen = l(t.hero.taglineOpen, locale);
+const hl1 = l(t.hero.hl1, locale);
+const taglineMid1 = l(t.hero.taglineMid1, locale);
+const hl2 = l(t.hero.hl2, locale);
+const taglineMid2 = l(t.hero.taglineMid2, locale);
+const hl3 = l(t.hero.hl3, locale);
+const taglineEnd = l(t.hero.taglineEnd, locale);
+const taglineAria = l(t.hero.taglineAriaLabel, locale);
+
+// Info bar
+const currentLabel = l(t.infoBar.currentLabel, locale);
+const currentVal = l(t.infoBar.current, locale);
+const currentFull = l(t.infoBar.currentFull, locale);
+const roleVal = l(t.infoBar.role, locale);
+const roleSuffix = l(t.infoBar.roleSuffix, locale);
+const roleFull = l(t.infoBar.roleFull, locale);
+const phoneLabel = l(t.infoBar.phoneLabel, locale);
+const emailLabel = l(t.infoBar.emailLabel, locale);
+
 ---
 
 <div class="relative flex flex-col">
@@ -8,9 +40,8 @@ import ContactButtons from './ContactButtons.astro';
     <div class="flex flex-col gap-0 grow hero-char-reveal-root">
       <!-- "Hey, I'm" + Avatar + "Zack." -->
       <div id="introHover" class="w-[640px] flex items-end gap-[16px] group">
-        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label="Hey, I'm">
-          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">H</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">,</span></span>
-          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span><span class="hero-char" aria-hidden="true">&rsquo;</span><span class="hero-char" aria-hidden="true">m</span></span>
+        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={hey}>
+          {isZh ? (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">你</span><span class="hero-char" aria-hidden="true">好</span><span class="hero-char" aria-hidden="true">，</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">是</span></span></>) : (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">H</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">,</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span><span class="hero-char" aria-hidden="true">&rsquo;</span><span class="hero-char" aria-hidden="true">m</span></span></>)}
         </div>
         <!-- Avatar swap on hover -->
         <div class="hero-avatar-unit w-[96px] h-[96px] shrink-0 flex items-center justify-center relative">
@@ -22,85 +53,136 @@ import ContactButtons from './ContactButtons.astro';
         <!-- "Zack." with glow -->
         <div id="zackTitle"
           class="group relative text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]">
-          <span class="relative z-0 hero-char-word" aria-label="Zack.">
+          <span class="relative z-0 hero-char-word" aria-label={heroName}>
             <span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true">.</span>
           </span>
           <span aria-hidden="true"
             class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-          >Zack.</span>
+          >{heroName}</span>
         </div>
       </div>
 
-      <!-- "I design for Media Ecology. Grounding Philosophy. Crafting Systems." -->
-      <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label="I design for Media Ecology. Grounding Philosophy. Crafting Systems.">
-        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span></span>
-        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">g</span><span class="hero-char" aria-hidden="true">n</span></span>
-        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">r</span></span>
-        {' '}
-        <!-- Media Ecology -->
-        <span id="mediaEcologyGroup" class="relative inline-block text-black/90 group">
-          <span class="relative inline-block align-middle">
-            <span class="relative z-0" aria-label="Media Ecology.">
-              <span class="hero-char-word">
-                <span class="hero-char" aria-hidden="true">M</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">a</span>
-              </span>{' '}<span class="hero-char-word">
-                <span class="hero-char" aria-hidden="true">E</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">g</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
+      <!-- Tagline -->
+      {isZh ? (
+        /* ── Chinese tagline ── */
+        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={taglineAria}>
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">为</span></span>
+          {' '}
+          <!-- 媒介生态 -->
+          <span class="relative inline-block text-black/90 group">
+            <span class="relative inline-block align-middle">
+              <span class="relative z-0" aria-label={hl1}>
+                <span class="hero-char-word"><span class="hero-char" aria-hidden="true">媒</span><span class="hero-char" aria-hidden="true">介</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">生</span><span class="hero-char" aria-hidden="true">态</span></span>
               </span>
+              <span aria-hidden="true"
+                class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
+              >{hl1}</span>
+            </span>
+            <span class="pointer-events-none absolute -inset-[32px] z-10">
+              <img src="/assets/mc.png" alt="" class="absolute top-[-28px] left-[-36px] w-[52px] h-[52px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleA_14000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+              <img src="/assets/mon.png" alt="" class="absolute top-[-36px] right-[-44px] w-[44px] h-[44px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleB_16000ms_ease-in-out_infinite] [animation-delay:600ms]" />
+              <img src="/assets/post.png" alt="" class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]" />
+            </span>
+          </span>
+          {' '}
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">而</span><span class="hero-char" aria-hidden="true">设</span><span class="hero-char" aria-hidden="true">计</span><span class="hero-char" aria-hidden="true">。</span><span class="hero-char" aria-hidden="true">立</span><span class="hero-char" aria-hidden="true">足</span></span>
+          {' '}
+          <!-- 哲思 -->
+          <span class="relative inline-block text-black/90 group align-middle">
+            <span class="relative z-0 hero-char-word" aria-label={hl2}>
+              <span class="hero-char" aria-hidden="true">哲</span><span class="hero-char" aria-hidden="true">思</span>
             </span>
             <span aria-hidden="true"
               class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-            >Media Ecology.</span>
+            >{hl2}</span>
+            <span class="pointer-events-none absolute -inset-[28px] z-10">
+              <img src="/assets/nc.png" alt="" class="absolute top-[-22px] left-[-30px] w-[48px] h-[48px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP1_15000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+              <img src="/assets/fc.png" alt="" class="absolute bottom-[-26px] right-[-36px] w-[40px] h-[40px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP2_17000ms_ease-in-out_infinite] [animation-delay:800ms]" />
+              <img src="/assets/alex.png" alt="" class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
+            </span>
           </span>
-          <span class="pointer-events-none absolute -inset-[32px] z-10">
-            <img src="/assets/mc.png" alt=""
-              class="absolute top-[-28px] left-[-36px] w-[52px] h-[52px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleA_14000ms_ease-in-out_infinite] [animation-delay:0ms]" />
-            <img src="/assets/mon.png" alt=""
-              class="absolute top-[-36px] right-[-44px] w-[44px] h-[44px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleB_16000ms_ease-in-out_infinite] [animation-delay:600ms]" />
-            <img src="/assets/post.png" alt=""
-              class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]" />
+          {' '}
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span><span class="hero-char" aria-hidden="true">构</span><span class="hero-char" aria-hidden="true">建</span></span>
+          {' '}
+          <!-- 系统 -->
+          <span class="relative inline-block text-black/90 group align-middle">
+            <span class="relative z-0 hero-char-word" aria-label={hl3}>
+              <span class="hero-char" aria-hidden="true">系</span><span class="hero-char" aria-hidden="true">统</span>
+            </span>
+            <span aria-hidden="true"
+              class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
+            >{hl3}</span>
+            <span class="pointer-events-none absolute -inset-[26px] z-10">
+              <img src="/assets/lm.png" alt="" onerror="this.style.display='none'" class="absolute top-[-18px] left-[-28px] w-[46px] h-[46px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS1_16000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+              <img src="/assets/vc.png" alt="" onerror="this.style.display='none'" class="absolute top-[-12px] right-[-34px] w-[38px] h-[38px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS2_18000ms_ease-in-out_infinite] [animation-delay:700ms]" />
+              <img src="/assets/nw.png" alt="" onerror="this.style.display='none'" class="absolute bottom-[-24px] left-[62%] w-[32px] h-[32px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS3_20000ms_ease-in-out_infinite] [animation-delay:1300ms]" />
+            </span>
           </span>
-        </span>
-        {' '}
-        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">G</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">u</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
-        {' '}
-        <!-- Philosophy -->
-        <span class="relative inline-block text-black/90 group align-middle">
-          <span class="relative z-0 hero-char-word" aria-label="Philosophy.">
-            <span class="hero-char" aria-hidden="true">P</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">p</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span></span>
+        </div>
+      ) : (
+        /* ── English tagline ── */
+        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={taglineAria}>
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span></span>
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">g</span><span class="hero-char" aria-hidden="true">n</span></span>
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">r</span></span>
+          {' '}
+          <!-- Media Ecology -->
+          <span id="mediaEcologyGroup" class="relative inline-block text-black/90 group">
+            <span class="relative inline-block align-middle">
+              <span class="relative z-0" aria-label="Media Ecology.">
+                <span class="hero-char-word">
+                  <span class="hero-char" aria-hidden="true">M</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">a</span>
+                </span>{' '}<span class="hero-char-word">
+                  <span class="hero-char" aria-hidden="true">E</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">g</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
+                </span>
+              </span>
+              <span aria-hidden="true"
+                class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
+              >Media Ecology.</span>
+            </span>
+            <span class="pointer-events-none absolute -inset-[32px] z-10">
+              <img src="/assets/mc.png" alt="" class="absolute top-[-28px] left-[-36px] w-[52px] h-[52px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleA_14000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+              <img src="/assets/mon.png" alt="" class="absolute top-[-36px] right-[-44px] w-[44px] h-[44px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleB_16000ms_ease-in-out_infinite] [animation-delay:600ms]" />
+              <img src="/assets/post.png" alt="" class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]" />
+            </span>
           </span>
-          <span aria-hidden="true"
-            class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-          >Philosophy.</span>
-          <span class="pointer-events-none absolute -inset-[28px] z-10">
-            <img src="/assets/nc.png" alt=""
-              class="absolute top-[-22px] left-[-30px] w-[48px] h-[48px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP1_15000ms_ease-in-out_infinite] [animation-delay:0ms]" />
-            <img src="/assets/fc.png" alt=""
-              class="absolute bottom-[-26px] right-[-36px] w-[40px] h-[40px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP2_17000ms_ease-in-out_infinite] [animation-delay:800ms]" />
-            <img src="/assets/alex.png" alt=""
-              class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
+          {' '}
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">G</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">u</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
+          {' '}
+          <!-- Philosophy -->
+          <span class="relative inline-block text-black/90 group align-middle">
+            <span class="relative z-0 hero-char-word" aria-label="Philosophy.">
+              <span class="hero-char" aria-hidden="true">P</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">p</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
+            </span>
+            <span aria-hidden="true"
+              class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
+            >Philosophy.</span>
+            <span class="pointer-events-none absolute -inset-[28px] z-10">
+              <img src="/assets/nc.png" alt="" class="absolute top-[-22px] left-[-30px] w-[48px] h-[48px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP1_15000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+              <img src="/assets/fc.png" alt="" class="absolute bottom-[-26px] right-[-36px] w-[40px] h-[40px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP2_17000ms_ease-in-out_infinite] [animation-delay:800ms]" />
+              <img src="/assets/alex.png" alt="" class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
+            </span>
           </span>
-        </span>
-        {' '}
-        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">C</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
-        {' '}
-        <!-- Systems -->
-        <span class="relative inline-block text-black/90 group align-middle">
-          <span class="relative z-0 hero-char-word" aria-label="Systems.">
-            <span class="hero-char" aria-hidden="true">S</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">m</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">.</span>
+          {' '}
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">C</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
+          {' '}
+          <!-- Systems -->
+          <span class="relative inline-block text-black/90 group align-middle">
+            <span class="relative z-0 hero-char-word" aria-label="Systems.">
+              <span class="hero-char" aria-hidden="true">S</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">m</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">.</span>
+            </span>
+            <span aria-hidden="true"
+              class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
+            >Systems.</span>
+            <span class="pointer-events-none absolute -inset-[26px] z-10">
+              <img src="/assets/lm.png" alt="" onerror="this.style.display='none'" class="absolute top-[-18px] left-[-28px] w-[46px] h-[46px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS1_16000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+              <img src="/assets/vc.png" alt="" onerror="this.style.display='none'" class="absolute top-[-12px] right-[-34px] w-[38px] h-[38px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS2_18000ms_ease-in-out_infinite] [animation-delay:700ms]" />
+              <img src="/assets/nw.png" alt="" onerror="this.style.display='none'" class="absolute bottom-[-24px] left-[62%] w-[32px] h-[32px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS3_20000ms_ease-in-out_infinite] [animation-delay:1300ms]" />
+            </span>
           </span>
-          <span aria-hidden="true"
-            class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-          >Systems.</span>
-          <span class="pointer-events-none absolute -inset-[26px] z-10">
-            <img src="/assets/lm.png" alt="" onerror="this.style.display='none'"
-              class="absolute top-[-18px] left-[-28px] w-[46px] h-[46px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS1_16000ms_ease-in-out_infinite] [animation-delay:0ms]" />
-            <img src="/assets/vc.png" alt="" onerror="this.style.display='none'"
-              class="absolute top-[-12px] right-[-34px] w-[38px] h-[38px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS2_18000ms_ease-in-out_infinite] [animation-delay:700ms]" />
-            <img src="/assets/nw.png" alt="" onerror="this.style.display='none'"
-              class="absolute bottom-[-24px] left-[62%] w-[32px] h-[32px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS3_20000ms_ease-in-out_infinite] [animation-delay:1300ms]" />
-          </span>
-        </span>
-      </div>
+        </div>
+      )}
     </div>
 
     <!-- Right: Contact Buttons -->
@@ -111,19 +193,19 @@ import ContactButtons from './ContactButtons.astro';
   <div data-reveal data-reveal-delay="1850" class="relative z-[1] self-stretch px-20 inline-flex justify-between items-center mt-[96px]">
     <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
       <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
-        Current: Tencent - WeChat Design Team
+        {currentFull}
       </div>
       <div class="self-stretch justify-start">
-        <span class="text-black/90 text-xl font-normal font-['Geist']">Role: Product Experience Designer</span>
-        <span class="text-black/40 text-xl font-normal font-['Geist']"> (Intern)</span>
+        <span class="text-black/90 text-xl font-normal font-['Geist']">{roleFull}</span>
+        <span class="text-black/40 text-xl font-normal font-['Geist']"> {roleSuffix}</span>
       </div>
     </div>
     <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
       <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
-        Phone (WeChat): +86 19120330185
+        {phoneLabel}: +86 19120330185
       </div>
       <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
-        E-mail: ChengkeZha@gmail.com
+        {emailLabel}: ChengkeZha@gmail.com
       </div>
     </div>
   </div>
@@ -166,7 +248,6 @@ import ContactButtons from './ContactButtons.astro';
       filter: blur(0);
     }
 
-    /* Prevent word breaks between characters */
     .hero-char-word {
       display: inline-block;
       white-space: nowrap;
@@ -190,7 +271,6 @@ import ContactButtons from './ContactButtons.astro';
     if (window.matchMedia('(max-width: 768px)').matches) return;
     const root = document.querySelector('.hero-char-reveal-root');
     if (!root) return;
-    // Assign sequential indices to all char + avatar units for staggered reveal
     root.querySelectorAll('.hero-char, .hero-avatar-unit').forEach(function (el, i) {
       el.style.setProperty('--hci', String(i));
     });
@@ -248,9 +328,7 @@ import ContactButtons from './ContactButtons.astro';
       const a = nums[0], b = nums[1];
       return Math.atan2(b, a) * (180 / Math.PI);
     };
-    g.addEventListener('mouseenter', () => {
-      startSwing();
-    });
+    g.addEventListener('mouseenter', () => { startSwing(); });
     g.addEventListener('mouseleave', () => {
       const angle = getAngle();
       if (introAnim) { introAnim.cancel(); introAnim = null; }
@@ -260,10 +338,7 @@ import ContactButtons from './ContactButtons.astro';
         [{ transform: `rotate(${angle}deg)` }, { transform: 'rotate(0deg)' }],
         { duration: 400, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
       );
-      returnAnim.onfinish = () => {
-        z.style.transform = 'rotate(0deg)';
-        returnAnim = null;
-      };
+      returnAnim.onfinish = () => { z.style.transform = 'rotate(0deg)'; returnAnim = null; };
     });
   }
 </script>

@@ -1,13 +1,21 @@
 ---
 // MobileFooter.astro — Mobile footer (Figma)
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
 ---
 
 <footer data-reveal class="pt-[96px] pb-[80px] flex flex-col justify-center items-center gap-[16px] bg-[#F0F0F0]">
   <div class="flex flex-col justify-center items-center gap-[10px]">
     <img src="/assets/avatar2.png" alt="Avatar" class="w-[112px] h-[112px]" />
-    <div class="text-black/90 text-[28px] font-geist font-normal">Ready to build something that shapes us? Let&rsquo;s talk.</div>
+    <div class="text-black/90 text-[28px] font-geist font-normal">{l(t.footer.tagline, locale)}</div>
   </div>
-  <div class="text-black/50 text-[28px] font-geist font-normal">Chengke Zha &copy; <span id="mobile-copyright-year">2025</span></div>
+  <div class="text-black/50 text-[28px] font-geist font-normal">{l(t.footer.name, locale)} &copy; <span id="mobile-copyright-year">2025</span></div>
 </footer>
 
 <script>

@@ -27,6 +27,8 @@
   --mobile-width: 768px;
   --page-bg: #EDEDED;
   --mobile-bg: #F0F0F0;
+  --font-en: 'Geist', sans-serif;
+  --font-zh: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans CJK SC', sans-serif;
 }
 
 html {
@@ -40,7 +42,12 @@ body {
   width: 100%;
   min-height: 100vh;
   background: var(--page-bg);
-  font-family: 'Geist', sans-serif;
+  font-family: var(--font-en);
+}
+
+/* Chinese pages use PingFang SC font stack */
+html[lang="zh-CN"] body {
+  font-family: var(--font-zh);
 }
 
 /* ===== Desktop Scaling System ===== */

@@ -1,67 +1,84 @@
 ---
 // MobileHero.astro — Mobile hero section (Figma)
+import { t, l } from '@/i18n/home';
+import type { Locale } from '@/i18n/home';
+
+export interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const isZh = locale === 'zh';
 ---
 
 <div class="w-full">
   <!-- Name + tagline -->
   <div class="px-[32px] py-[24px] flex flex-col items-start">
     <div data-reveal class="inline-flex items-center gap-[8px]">
-      <div class="text-black/40 text-[54px] font-geist font-medium">Hey, I&rsquo;m</div>
+      <div class="text-black/40 text-[54px] font-geist font-medium">{l(t.hero.hey, locale)}</div>
       <img src="/assets/avatar3.png" alt="Avatar" class="w-[72px] h-[72px]" />
-      <div class="text-black text-[54px] font-geist font-medium">Zack.</div>
+      <div class="text-black text-[54px] font-geist font-medium">{l(t.hero.name, locale)}</div>
     </div>
     <div data-reveal data-reveal-delay="220" class="w-full text-[54px] font-geist font-medium">
-      <span class="text-black/40">I design for </span>
-      <span class="text-black/90">Media Ecology. </span>
-      <span class="text-black/40">Grounding </span>
-      <span class="text-black/90">Philosophy. </span>
-      <span class="text-black/40">Crafting </span>
-      <span class="text-black/90">Systems.</span>
+      {isZh ? (
+        <>
+          <span class="text-black/40">我为</span>
+          <span class="text-black/90">媒介生态</span>
+          <span class="text-black/40">而设计。立足</span>
+          <span class="text-black/90">哲思</span>
+          <span class="text-black/40">。构建</span>
+          <span class="text-black/90">系统</span>
+          <span class="text-black/40">。</span>
+        </>
+      ) : (
+        <>
+          <span class="text-black/40">I design for </span>
+          <span class="text-black/90">Media Ecology. </span>
+          <span class="text-black/40">Grounding </span>
+          <span class="text-black/90">Philosophy. </span>
+          <span class="text-black/40">Crafting </span>
+          <span class="text-black/90">Systems.</span>
+        </>
+      )}
     </div>
   </div>
 
   <!-- Info cards + Contact -->
   <div class="px-[32px] py-[24px] flex flex-col items-start gap-[16px]">
-    <!-- Info cards row -->
     <div class="self-stretch flex items-center gap-[16px]">
-      <!-- Current card — beat 3 -->
+      <!-- Current card -->
       <div data-reveal data-reveal-delay="460" class="flex-1 p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] outline outline-1 outline-[rgba(0,0,0,0.05)] flex flex-col items-start gap-[32px]" style="outline-offset: -1px;">
         <div class="self-stretch flex justify-between items-center">
-          <div class="text-black/50 text-[28px] font-geist font-normal">Current</div>
+          <div class="text-black/50 text-[28px] font-geist font-normal">{l(t.infoBar.currentLabel, locale)}</div>
           <img src="/assets/mobile-building.svg" alt="" class="w-[42px] h-[36px]" />
         </div>
-        <div class="self-stretch text-black/90 text-[28px] font-geist font-normal">Tencent &mdash; WeChat Design Team</div>
+        <div class="self-stretch text-black/90 text-[28px] font-geist font-normal">{l(t.infoBar.current, locale)}</div>
       </div>
 
-      <!-- Education card — beat 4 -->
+      <!-- Education card -->
       <div data-reveal data-reveal-delay="680" class="flex-1 p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] outline outline-1 outline-[rgba(0,0,0,0.05)] flex flex-col items-start gap-[32px]" style="outline-offset: -1px;">
         <div class="self-stretch flex justify-between items-center">
-          <div class="text-black/50 text-[28px] font-geist font-normal">Education</div>
+          <div class="text-black/50 text-[28px] font-geist font-normal">{l(t.infoBar.educationLabel, locale)}</div>
           <img src="/assets/mobile-education.svg" alt="" class="w-[40px] h-[36px]" />
         </div>
-        <div class="self-stretch text-black/90 text-[28px] font-geist font-normal">M.Sc. in Interaction Design, PolyU</div>
+        <div class="self-stretch text-black/90 text-[28px] font-geist font-normal">{l(t.infoBar.education, locale)}</div>
       </div>
     </div>
 
-    <!-- Contact card — beat 5 -->
+    <!-- Contact card -->
     <div data-reveal data-reveal-delay="920" class="self-stretch p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] outline outline-1 outline-[rgba(0,0,0,0.05)] flex flex-col items-start gap-[32px]" style="outline-offset: -1px;">
-      <!-- Phone row -->
       <div class="self-stretch flex justify-between items-center">
         <div class="flex items-center gap-[16px]">
           <img src="/assets/mobile-phone.svg" alt="" class="w-[34px] h-[34px]" />
-          <div class="text-black/50 text-[28px] font-geist font-normal">Phone (WeChat)</div>
+          <div class="text-black/50 text-[28px] font-geist font-normal">{l(t.infoBar.phoneLabel, locale)}</div>
         </div>
         <div class="text-black/90 text-[28px] font-geist font-normal">+86 19120330185</div>
       </div>
-
-      <!-- Divider -->
       <img src="/assets/mobile-divider.svg" alt="" class="self-stretch w-full h-[1px]" />
-
-      <!-- Email row -->
       <div class="self-stretch flex justify-between items-center">
         <div class="flex items-center gap-[16px]">
           <img src="/assets/mobile-email.svg" alt="" class="w-[37px] h-[26px]" />
-          <div class="text-black/50 text-[28px] font-geist font-normal">Email</div>
+          <div class="text-black/50 text-[28px] font-geist font-normal">{l(t.infoBar.emailLabel, locale)}</div>
         </div>
         <div class="text-black/90 text-[28px] font-geist font-normal">2745940185@qq.com</div>
       </div>
