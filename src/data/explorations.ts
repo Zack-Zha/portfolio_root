@@ -34,7 +34,7 @@ export const explorations: Exploration[] = [
     },
     description: {
       en: 'An inspiring community for older adults to connect, share wisdom, and spark new passions.',
-      zh: '一个鼓励长者彼此连接、分享智慧、激发新热情的社区。',
+      zh: '一个鼓励长者彼此连接、分享智慧、激发新热情的社区。现已推出小程序：闪闪发光俱乐部。',
     },
     image: '/assets/exploration2.png',
     logo: '/assets/logo_aura.png',
@@ -50,7 +50,7 @@ export const explorations: Exploration[] = [
     },
     description: {
       en: 'Redesigning an AI-powered mental wellness experience to be more intuitive and user-friendly.',
-      zh: '重设计 AI 驱动的心理健康体验，使其更直观、更友好。',
+      zh: '重新设计 AI 驱动的心理健康体验，使其更友好易用。现已推出小程序：心力速充站。',
     },
     image: '/assets/exploration3.png',
     logo: '/assets/logo_mindcharge.png',
