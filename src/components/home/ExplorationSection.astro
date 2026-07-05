@@ -3,10 +3,10 @@ import { explorations } from '@/data/explorations';
 ---
 
 <div class="flex flex-col gap-[56px] px-[80px]">
-  <div class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
-  <div class="flex items-center gap-[16px] flex-nowrap">
+  <div data-reveal class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
+  <div data-reveal-group="120" class="flex items-center gap-[16px] flex-nowrap">
     {explorations.map((item) => (
-      <div class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
+      <div data-reveal class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
         <img
           src={item.image}
           alt={item.alt}

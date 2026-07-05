@@ -5,9 +5,9 @@ import ContactButtons from './ContactButtons.astro';
 <div class="relative flex flex-col">
   <div class="relative z-[1] flex justify-between items-end gap-[316px] px-[80px] mt-[174px] flex-nowrap">
     <!-- Left: Name + Tagline -->
-    <div class="flex flex-col gap-0 grow">
+    <div data-reveal-group="100" class="flex flex-col gap-0 grow">
       <!-- "Hey, I'm" + Avatar + "Zack." -->
-      <div id="introHover" class="w-[640px] flex items-end gap-[16px] group">
+      <div id="introHover" data-reveal class="w-[640px] flex items-end gap-[16px] group">
         <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Hey, I&rsquo;m</div>
         <!-- Avatar swap on hover -->
         <div class="w-[96px] h-[96px] shrink-0 flex items-center justify-center relative">
@@ -27,7 +27,7 @@ import ContactButtons from './ContactButtons.astro';
       </div>
 
       <!-- "I design for Media Ecology. Grounding Philosophy. Crafting Systems." -->
-      <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">
+      <div data-reveal class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">
         I design for
         <!-- Media Ecology -->
         <span id="mediaEcologyGroup" class="relative inline-block text-black/90 group">
@@ -86,7 +86,7 @@ import ContactButtons from './ContactButtons.astro';
   </div>
 
   <!-- Info Bar -->
-  <div class="relative z-[1] self-stretch px-20 inline-flex justify-between items-center mt-[96px]">
+  <div data-reveal class="relative z-[1] self-stretch px-20 inline-flex justify-between items-center mt-[96px]">
     <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
       <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
         Current: Tencent - WeChat Design Team
