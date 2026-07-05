@@ -71,42 +71,45 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
 
 <script>
   /**
-   * Reveal animation system — IntersectionObserver with stagger support.
+   * Reveal animation system — IntersectionObserver with batch-sort-flush.
+   *
+   * On mobile, entries that intersect in the same frame are collected, sorted
+   * by visual position (top-to-bottom), then revealed in DOM order. This
+   * prevents lower elements from "jumping the queue" ahead of upper elements.
    *
    * Markup:
    *   <div data-reveal>Standalone element</div>
    *
-   *   <div data-reveal-group="240">
+   *   <div data-reveal-group="260">
    *     <div data-reveal>Child 1</div>   ← must be DIRECT child of group
    *     <div data-reveal>Child 2</div>
    *   </div>
    *
    * Per-element overrides:
-   *   data-reveal-delay="440"       Override stagger delay (ms)
+   *   data-reveal-delay="440"       Fixed reveal delay (ms) — overrides all stagger
    *   data-reveal-duration="1100"   Transition duration (ms)
    *   data-reveal-y="36"            TranslateY offset (px)
    *   data-reveal-blur="5"          Blur amount (px)
    *   data-reveal-no-blur           Disable blur (for elements with backdrop-filter)
    *   data-reveal-reset-transform   Clean up compositor layer after animation
-   *
-   * Group behavior:
-   *   When ANY child of a group enters the viewport, ALL children in that group
-   *   are revealed in DOM order with the group's stagger interval.
-   *   The group is then locked (data-reveal-group-processed) so it never fires again.
    */
 
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-  // Mobile: slower, softer defaults for a relaxed reading rhythm
   const DEFAULTS = {
     duration: isMobile ? 1150 : 1150,
     y:        isMobile ? 36   : 32,
     blur:     isMobile ? 5    : 8,
-    stagger:  isMobile ? 240  : 220,
+    stagger:  isMobile ? 260  : 220,
+    // Standalone items in same batch get this stagger so they don't all pop at once
+    viewportStagger: isMobile ? 140 : 80,
     ease:     'cubic-bezier(0.22, 1, 0.36, 1)',
   };
 
+  // ── applyReveal ──────────────────────────────────────────────────────
+
   function applyReveal(el, delayMs) {
+    // Per-element fixed delay always wins
     if (el.dataset.revealDelay !== undefined) {
       delayMs = parseInt(el.dataset.revealDelay, 10);
     }
@@ -130,7 +133,6 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     el.style.setProperty('--reveal-delay', String(delayMs) + 'ms');
     el.classList.add('is-revealed');
 
-    // Clean up compositor layer for reset-transform elements after animation
     if (el.hasAttribute('data-reveal-reset-transform')) {
       setTimeout(function () {
         el.classList.add('reveal-complete');
@@ -138,10 +140,8 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     }
   }
 
-  /**
-   * Process a group: stagger-reveal all direct [data-reveal] children.
-   * Idempotent — second call is a no-op.
-   */
+  // ── processGroup ─────────────────────────────────────────────────────
+
   function processGroup(group) {
     if (group.dataset.revealGroupProcessed === '1') return;
     group.dataset.revealGroupProcessed = '1';
@@ -151,33 +151,117 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
 
     children.forEach(function (child, i) {
       if (child.classList.contains('is-revealed')) return;
+      child.dataset.revealProcessed = '1';
       applyReveal(child, i * staggerMs);
+      revealObserver.unobserve(child);
     });
-
-    // Unobserve all children — they are now handled
-    children.forEach(function (c) { revealObserver.unobserve(c); });
   }
+
+  // ── batch-sort-flush scheduler ───────────────────────────────────────
+
+  var pendingEls = [];
+  var flushScheduled = false;
+
+  function flushReveals() {
+    flushScheduled = false;
+
+    // Deduplicate and filter out already-handled items
+    var seen = {};
+    var items = [];
+    for (var i = 0; i < pendingEls.length; i++) {
+      var el = pendingEls[i];
+      if (el.dataset.revealProcessed === '1') continue;
+      // Deduplicate by a stable key
+      var key = el.dataset.revealKey;
+      if (!key) {
+        // Build a path-based key: tagName + position among siblings
+        var path = el.tagName;
+        var p = el.parentNode;
+        while (p && p !== document.body) {
+          if (p.hasAttribute && p.hasAttribute('data-reveal-group')) {
+            path = '[group]' + path;
+          }
+          p = p.parentNode;
+        }
+        key = path;
+        el.dataset.revealKey = key;
+      }
+      if (seen[key]) continue;
+      seen[key] = true;
+      items.push(el);
+    }
+    pendingEls.length = 0;
+
+    if (!items.length) return;
+
+    // On mobile, sort by visual position so upper elements always fire first
+    if (isMobile) {
+      items.sort(function (a, b) {
+        var aTop = a.getBoundingClientRect().top;
+        var bTop = b.getBoundingClientRect().top;
+        if (Math.abs(aTop - bTop) > 6) return aTop - bTop;
+        // Same row — use document order
+        return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
+      });
+    }
+
+    // Track groups already processed in this flush
+    var processedGroups = {};
+    var standaloneIdx = 0;
+
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+      if (item.dataset.revealProcessed === '1') continue;
+
+      var group = item.closest('[data-reveal-group]');
+
+      if (group) {
+        // Element is inside a group — trigger the whole group once per flush
+        var gid = group.dataset.revealGroupId;
+        if (!gid) {
+          gid = 'g' + Math.random().toString(36).slice(2, 8);
+          group.dataset.revealGroupId = gid;
+        }
+        if (!processedGroups[gid]) {
+          processedGroups[gid] = true;
+          processGroup(group);
+        }
+        // This child was either just revealed by processGroup,
+        // or the group was already processed earlier. Either way, unobserve.
+        if (item.dataset.revealProcessed !== '1') {
+          item.dataset.revealProcessed = '1';
+          applyReveal(item, 0);
+        }
+        revealObserver.unobserve(item);
+      } else {
+        // Standalone — stagger within this batch
+        item.dataset.revealProcessed = '1';
+        applyReveal(item, standaloneIdx * DEFAULTS.viewportStagger);
+        standaloneIdx++;
+        revealObserver.unobserve(item);
+      }
+    }
+  }
+
+  function scheduleFlush() {
+    if (flushScheduled) return;
+    flushScheduled = true;
+    requestAnimationFrame(flushReveals);
+  }
+
+  // ── IntersectionObserver ─────────────────────────────────────────────
 
   var revealObserver = new IntersectionObserver(
     function (entries) {
       for (var i = 0; i < entries.length; i++) {
-        var entry = entries[i];
-        if (!entry.isIntersecting) continue;
-
-        var el = entry.target;
-        var group = el.closest('[data-reveal-group]');
-
-        if (group) {
-          // Element belongs to a group — fire the whole group once
-          processGroup(group);
-        } else {
-          // Standalone element — reveal on its own
-          applyReveal(el, 0);
-          revealObserver.unobserve(el);
-        }
+        if (!entries[i].isIntersecting) continue;
+        pendingEls.push(entries[i].target);
       }
+      scheduleFlush();
     },
-    { threshold: 0.10, rootMargin: '0px 0px -6% 0px' }
+    isMobile
+      ? { threshold: 0.16, rootMargin: '0px 0px -18% 0px' }
+      : { threshold: 0.10, rootMargin: '0px 0px -6% 0px' }
   );
 
   document.querySelectorAll('[data-reveal]').forEach(function (el) {
