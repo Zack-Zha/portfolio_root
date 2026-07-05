@@ -39,9 +39,9 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
     <!-- Left: Name + Tagline -->
     <div class="flex flex-col gap-0 grow hero-char-reveal-root">
       <!-- "Hey, I'm" + Avatar + "Zack." -->
-      <div id="introHover" class="w-[640px] flex items-end gap-[16px] group">
-        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={hey}>
-          {isZh ? (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">你</span><span class="hero-char" aria-hidden="true">好</span><span class="hero-char" aria-hidden="true">，</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">是</span></span></>) : (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">H</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">,</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span><span class="hero-char" aria-hidden="true">&rsquo;</span><span class="hero-char" aria-hidden="true">m</span></span></>)}
+      <div id="introHover" class={isZh ? 'flex items-end gap-[16px] group' : 'w-[640px] flex items-end gap-[16px] group'}>
+        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40 whitespace-nowrap" aria-label={hey}>
+          {isZh ? (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">你</span><span class="hero-char" aria-hidden="true">好</span><span class="hero-char" aria-hidden="true">，</span><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">是</span></span></>) : (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">H</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">,</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span><span class="hero-char" aria-hidden="true">&rsquo;</span><span class="hero-char" aria-hidden="true">m</span></span></>)}
         </div>
         <!-- Avatar swap on hover -->
         <div class="hero-avatar-unit w-[96px] h-[96px] shrink-0 flex items-center justify-center relative">
@@ -66,59 +66,54 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
       {isZh ? (
         /* ── Chinese tagline ── */
         <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={taglineAria}>
-          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">为</span></span>
-          {' '}
-          <!-- 媒介生态 -->
-          <span class="relative inline-block text-black/90 group">
-            <span class="relative inline-block align-middle">
-              <span class="relative z-0" aria-label={hl1}>
-                <span class="hero-char-word"><span class="hero-char" aria-hidden="true">媒</span><span class="hero-char" aria-hidden="true">介</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">生</span><span class="hero-char" aria-hidden="true">态</span></span>
+          <!-- Phrase 1: 我为 媒介生态 而设计。 -->
+          <span class="hero-zh-phrase">
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">为</span></span>
+            <span class="relative inline-block text-black/90 group align-middle">
+              <span class="relative z-0 hero-char-word" aria-label={hl1}>
+                <span class="hero-char" aria-hidden="true">媒</span><span class="hero-char" aria-hidden="true">介</span><span class="hero-char" aria-hidden="true">生</span><span class="hero-char" aria-hidden="true">态</span>
               </span>
-              <span aria-hidden="true"
-                class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-              >{hl1}</span>
+              <span aria-hidden="true" class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">{hl1}</span>
+              <span class="pointer-events-none absolute -inset-[32px] z-10">
+                <img src="/assets/mc.png" alt="" class="absolute top-[-28px] left-[-36px] w-[52px] h-[52px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleA_14000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+                <img src="/assets/mon.png" alt="" class="absolute top-[-36px] right-[-44px] w-[44px] h-[44px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleB_16000ms_ease-in-out_infinite] [animation-delay:600ms]" />
+                <img src="/assets/post.png" alt="" class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]" />
+              </span>
             </span>
-            <span class="pointer-events-none absolute -inset-[32px] z-10">
-              <img src="/assets/mc.png" alt="" class="absolute top-[-28px] left-[-36px] w-[52px] h-[52px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleA_14000ms_ease-in-out_infinite] [animation-delay:0ms]" />
-              <img src="/assets/mon.png" alt="" class="absolute top-[-36px] right-[-44px] w-[44px] h-[44px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleB_16000ms_ease-in-out_infinite] [animation-delay:600ms]" />
-              <img src="/assets/post.png" alt="" class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]" />
-            </span>
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">而</span><span class="hero-char" aria-hidden="true">设</span><span class="hero-char" aria-hidden="true">计</span><span class="hero-char" aria-hidden="true">。</span></span>
           </span>
-          {' '}
-          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">而</span><span class="hero-char" aria-hidden="true">设</span><span class="hero-char" aria-hidden="true">计</span><span class="hero-char" aria-hidden="true">。</span><span class="hero-char" aria-hidden="true">立</span><span class="hero-char" aria-hidden="true">足</span></span>
-          {' '}
-          <!-- 哲思 -->
-          <span class="relative inline-block text-black/90 group align-middle">
-            <span class="relative z-0 hero-char-word" aria-label={hl2}>
-              <span class="hero-char" aria-hidden="true">哲</span><span class="hero-char" aria-hidden="true">思</span>
+          <!-- Phrase 2: 立足 哲思。 -->
+          <span class="hero-zh-phrase">
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">立</span><span class="hero-char" aria-hidden="true">足</span></span>
+            <span class="relative inline-block text-black/90 group align-middle">
+              <span class="relative z-0 hero-char-word" aria-label={hl2}>
+                <span class="hero-char" aria-hidden="true">哲</span><span class="hero-char" aria-hidden="true">思</span>
+              </span>
+              <span aria-hidden="true" class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">{hl2}</span>
+              <span class="pointer-events-none absolute -inset-[28px] z-10">
+                <img src="/assets/nc.png" alt="" class="absolute top-[-22px] left-[-30px] w-[48px] h-[48px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP1_15000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+                <img src="/assets/fc.png" alt="" class="absolute bottom-[-26px] right-[-36px] w-[40px] h-[40px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP2_17000ms_ease-in-out_infinite] [animation-delay:800ms]" />
+                <img src="/assets/alex.png" alt="" class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
+              </span>
             </span>
-            <span aria-hidden="true"
-              class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-            >{hl2}</span>
-            <span class="pointer-events-none absolute -inset-[28px] z-10">
-              <img src="/assets/nc.png" alt="" class="absolute top-[-22px] left-[-30px] w-[48px] h-[48px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP1_15000ms_ease-in-out_infinite] [animation-delay:0ms]" />
-              <img src="/assets/fc.png" alt="" class="absolute bottom-[-26px] right-[-36px] w-[40px] h-[40px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP2_17000ms_ease-in-out_infinite] [animation-delay:800ms]" />
-              <img src="/assets/alex.png" alt="" class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
-            </span>
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span></span>
           </span>
-          {' '}
-          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span><span class="hero-char" aria-hidden="true">构</span><span class="hero-char" aria-hidden="true">建</span></span>
-          {' '}
-          <!-- 系统 -->
-          <span class="relative inline-block text-black/90 group align-middle">
-            <span class="relative z-0 hero-char-word" aria-label={hl3}>
-              <span class="hero-char" aria-hidden="true">系</span><span class="hero-char" aria-hidden="true">统</span>
+          <!-- Phrase 3: 构建 系统。 -->
+          <span class="hero-zh-phrase">
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">构</span><span class="hero-char" aria-hidden="true">建</span></span>
+            <span class="relative inline-block text-black/90 group align-middle">
+              <span class="relative z-0 hero-char-word" aria-label={hl3}>
+                <span class="hero-char" aria-hidden="true">系</span><span class="hero-char" aria-hidden="true">统</span>
+              </span>
+              <span aria-hidden="true" class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">{hl3}</span>
+              <span class="pointer-events-none absolute -inset-[26px] z-10">
+                <img src="/assets/lm.png" alt="" onerror="this.style.display='none'" class="absolute top-[-18px] left-[-28px] w-[46px] h-[46px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS1_16000ms_ease-in-out_infinite] [animation-delay:0ms]" />
+                <img src="/assets/vc.png" alt="" onerror="this.style.display='none'" class="absolute top-[-12px] right-[-34px] w-[38px] h-[38px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS2_18000ms_ease-in-out_infinite] [animation-delay:700ms]" />
+                <img src="/assets/nw.png" alt="" onerror="this.style.display='none'" class="absolute bottom-[-24px] left-[62%] w-[32px] h-[32px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS3_20000ms_ease-in-out_infinite] [animation-delay:1300ms]" />
+              </span>
             </span>
-            <span aria-hidden="true"
-              class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-            >{hl3}</span>
-            <span class="pointer-events-none absolute -inset-[26px] z-10">
-              <img src="/assets/lm.png" alt="" onerror="this.style.display='none'" class="absolute top-[-18px] left-[-28px] w-[46px] h-[46px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS1_16000ms_ease-in-out_infinite] [animation-delay:0ms]" />
-              <img src="/assets/vc.png" alt="" onerror="this.style.display='none'" class="absolute top-[-12px] right-[-34px] w-[38px] h-[38px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS2_18000ms_ease-in-out_infinite] [animation-delay:700ms]" />
-              <img src="/assets/nw.png" alt="" onerror="this.style.display='none'" class="absolute bottom-[-24px] left-[62%] w-[32px] h-[32px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS3_20000ms_ease-in-out_infinite] [animation-delay:1300ms]" />
-            </span>
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span></span>
           </span>
-          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span></span>
         </div>
       ) : (
         /* ── English tagline ── */
@@ -249,6 +244,11 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
     }
 
     .hero-char-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .hero-zh-phrase {
       display: inline-block;
       white-space: nowrap;
     }
