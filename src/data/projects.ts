@@ -18,16 +18,16 @@ export const projects: Project[] = [
   },
   {
     id: 'byme',
-    title: { en: 'Byme\nSocial Audio', zh: 'Byme\n社交音频' },
+    title: { en: 'Byme\nSocial Audio', zh: 'Byme\n语音社交' },
     href: '/work/byme',
     image: '/assets/product-2.png',
-    alt: { en: 'Byme', zh: 'Byme 社交音频' },
+    alt: { en: 'Byme', zh: 'Byme 语音社交' },
   },
   {
     id: 'podcast',
-    title: { en: 'AI-Driven\nPodcast', zh: 'AI 驱动\n播客' },
+    title: { en: 'AI-Driven\nPodcast', zh: 'AI 驱动\n播客平台' },
     href: '/work/podcast',
     image: '/assets/product-3.png',
-    alt: { en: 'AI-Driven Podcast', zh: 'AI 驱动播客' },
+    alt: { en: 'AI-Driven Podcast', zh: 'AI 驱动播客平台' },
   },
 ];

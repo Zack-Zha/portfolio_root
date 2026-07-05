@@ -52,7 +52,7 @@ export const t = {
     } as const,
     description: {
       en: "Establishing unified notification design guidelines for WeChat Shop's merchant platform, helping users manage complex messages with clarity and ease.",
-      zh: '为微信小店商家平台建立统一的通知设计规范，帮助用户更清晰、轻松地管理复杂消息。',
+      zh: '为微信小店商家平台建立统一的红点通知设计规范，帮助用户更清晰、轻松地管理复杂消息。',
     } as const,
   },
   research: {
