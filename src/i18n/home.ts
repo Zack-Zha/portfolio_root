@@ -9,18 +9,18 @@ export const t = {
   },
   hero: {
     hey: { en: "Hey, I'm", zh: '你好，我是' } as const,
-    name: { en: 'Zack.', zh: 'Zack.' } as const,
+    name: { en: 'Zack.', zh: 'Zack 查成柯。' } as const,
     taglineOpen: { en: 'I design for', zh: '我为' } as const,
-    hl1: { en: 'Media Ecology.', zh: '媒介生态' } as const,
+    hl1: { en: 'Media Ecology.', zh: '媒介环境' } as const,
     taglineMid1: { en: 'Grounding', zh: '而设计。立足' } as const,
     hl2: { en: 'Philosophy.', zh: '哲思' } as const,
-    taglineMid2: { en: 'Crafting', zh: '。构建' } as const,
+    taglineMid2: { en: 'Crafting', zh: '，构建' } as const,
     hl3: { en: 'Systems.', zh: '系统' } as const,
     taglineEnd: { en: '', zh: '。' } as const,
-    // Full sentence for aria-label (uses highlights for glow)
+    // Full sentence for aria-label
     taglineAriaLabel: {
       en: 'I design for Media Ecology. Grounding Philosophy. Crafting Systems.',
-      zh: '我为媒介生态而设计。立足哲思。构建系统。',
+      zh: '我为媒介环境而设计。立足哲思，构建系统。',
     } as const,
   },
   infoBar: {

@@ -54,7 +54,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
         <div id="zackTitle"
           class="group relative text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]">
           <span class="relative z-0 hero-char-word" aria-label={heroName}>
-            <span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true">.</span>
+            {isZh ? (<><span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true"> </span><span class="hero-char" aria-hidden="true">查</span><span class="hero-char" aria-hidden="true">成</span><span class="hero-char" aria-hidden="true">柯</span><span class="hero-char" aria-hidden="true">。</span></>) : (<><span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true">.</span></>)}
           </span>
           <span aria-hidden="true"
             class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
@@ -66,12 +66,12 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
       {isZh ? (
         /* ── Chinese tagline ── */
         <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={taglineAria}>
-          <!-- Phrase 1: 我为 媒介生态 而设计。 -->
+          <!-- Phrase 1: 我为 媒介环境 而设计。 -->
           <span class="hero-zh-phrase">
             <span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">为</span></span>
-            <span class="relative inline-block text-black/90 group align-middle">
+            <span class="relative inline-block text-black/90 group hero-zh-highlight">
               <span class="relative z-0 hero-char-word" aria-label={hl1}>
-                <span class="hero-char" aria-hidden="true">媒</span><span class="hero-char" aria-hidden="true">介</span><span class="hero-char" aria-hidden="true">生</span><span class="hero-char" aria-hidden="true">态</span>
+                <span class="hero-char" aria-hidden="true">媒</span><span class="hero-char" aria-hidden="true">介</span><span class="hero-char" aria-hidden="true">环</span><span class="hero-char" aria-hidden="true">境</span>
               </span>
               <span aria-hidden="true" class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">{hl1}</span>
               <span class="pointer-events-none absolute -inset-[32px] z-10">
@@ -82,10 +82,10 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
             </span>
             <span class="hero-char-word"><span class="hero-char" aria-hidden="true">而</span><span class="hero-char" aria-hidden="true">设</span><span class="hero-char" aria-hidden="true">计</span><span class="hero-char" aria-hidden="true">。</span></span>
           </span>
-          <!-- Phrase 2: 立足 哲思。 -->
+          <!-- Phrase 2: 立足 哲思，构建 系统。 -->
           <span class="hero-zh-phrase">
             <span class="hero-char-word"><span class="hero-char" aria-hidden="true">立</span><span class="hero-char" aria-hidden="true">足</span></span>
-            <span class="relative inline-block text-black/90 group align-middle">
+            <span class="relative inline-block text-black/90 group hero-zh-highlight">
               <span class="relative z-0 hero-char-word" aria-label={hl2}>
                 <span class="hero-char" aria-hidden="true">哲</span><span class="hero-char" aria-hidden="true">思</span>
               </span>
@@ -96,12 +96,8 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
                 <img src="/assets/alex.png" alt="" class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
               </span>
             </span>
-            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">。</span></span>
-          </span>
-          <!-- Phrase 3: 构建 系统。 -->
-          <span class="hero-zh-phrase">
-            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">构</span><span class="hero-char" aria-hidden="true">建</span></span>
-            <span class="relative inline-block text-black/90 group align-middle">
+            <span class="hero-char-word"><span class="hero-char" aria-hidden="true">，</span><span class="hero-char" aria-hidden="true">构</span><span class="hero-char" aria-hidden="true">建</span></span>
+            <span class="relative inline-block text-black/90 group hero-zh-highlight">
               <span class="relative z-0 hero-char-word" aria-label={hl3}>
                 <span class="hero-char" aria-hidden="true">系</span><span class="hero-char" aria-hidden="true">统</span>
               </span>
@@ -251,6 +247,18 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
     .hero-zh-phrase {
       display: inline-block;
       white-space: nowrap;
+    }
+
+    .hero-zh-highlight {
+      vertical-align: baseline;
+      line-height: inherit;
+    }
+
+    .hero-zh-phrase,
+    .hero-zh-highlight,
+    .hero-zh-phrase .hero-char-word,
+    .hero-zh-phrase .hero-char {
+      vertical-align: baseline;
     }
 
     @media (prefers-reduced-motion: reduce) {
