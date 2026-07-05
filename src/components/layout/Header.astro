@@ -1,0 +1,48 @@
+---
+// Header.astro — Fixed navigation bar with backdrop blur
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-[rgba(237,237,237,0.2)] backdrop-blur-[24px]">
+  <div class="min-w-[1840px] max-w-[1920px] w-full mx-auto flex items-center justify-between px-20 py-6">
+    <div
+      id="homeTitle"
+      class="text-xl font-medium leading-[1.3em] cursor-pointer transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/50"
+    >
+      Chengke Zha
+    </div>
+    <nav class="flex items-center gap-16 text-black/50 text-xl font-medium leading-[1.3em]">
+      <a
+        href="#work"
+        class="transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/90"
+      >
+        Work
+      </a>
+      <a
+        href="/gallery"
+        class="transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/90"
+      >
+        Gallery
+      </a>
+      <a
+        href="/about"
+        class="transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/90"
+      >
+        About
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const ht = document.getElementById('homeTitle');
+  if (ht) {
+    ht.addEventListener('click', () => {
+      const path = window.location.pathname.replace(/\/+$/, '');
+      if (path === '' || path === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.location.href = '/';
+      }
+    });
+  }
+</script>

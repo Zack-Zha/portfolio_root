@@ -1,0 +1,227 @@
+/* ===== Animated Custom Properties (Houdini @property) ===== */
+@property --h1 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 48deg;
+}
+@property --h2 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 330deg;
+}
+@property --h3 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 284deg;
+}
+@property --h4 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 212deg;
+}
+@property --h5 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 197deg;
+}
+@property --h6 {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 135deg;
+}
+
+/* ===== Card Mesh Gradient Glow ===== */
+.mesh-gradient {
+  background:
+    radial-gradient(110px 110px at 12% 12%, rgba(255, 214, 10, 0.8), rgba(255, 214, 10, 0) 60%),
+    radial-gradient(130px 130px at 85% 15%, rgba(255, 99, 164, 0.8), rgba(255, 99, 164, 0) 60%),
+    radial-gradient(120px 120px at 74% 66%, rgba(191, 90, 242, 0.8), rgba(191, 90, 242, 0) 60%),
+    radial-gradient(130px 130px at 48% 98%, rgba(10, 132, 255, 0.8), rgba(10, 132, 255, 0) 60%),
+    radial-gradient(110px 110px at 20% 78%, rgba(100, 210, 255, 0.8), rgba(100, 210, 255, 0) 60%),
+    radial-gradient(120px 120px at 4% 40%, rgba(48, 209, 88, 0.8), rgba(48, 209, 88, 0) 60%);
+  background-repeat: no-repeat;
+  background-size: 300% 300%;
+  background-position: 12% 12%, 85% 15%, 74% 66%, 48% 98%, 20% 78%, 4% 40%;
+}
+
+@keyframes gradientMesh {
+  0% {
+    background-position: 12% 12%, 85% 15%, 74% 66%, 48% 98%, 20% 78%, 4% 40%;
+  }
+  50% {
+    background-position: 30% 32%, 70% 28%, 60% 60%, 40% 80%, 26% 64%, 12% 52%;
+  }
+  100% {
+    background-position: 12% 12%, 85% 15%, 74% 66%, 48% 98%, 20% 78%, 4% 40%;
+  }
+}
+
+@keyframes glowMove {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 0%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Hero Ambient Background ===== */
+.hero-ambient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 820px;
+  padding-left: calc(max((100vw - 1920px) / 2, 0px));
+  padding-right: calc(max((100vw - 1920px) / 2, 0px));
+  --h1: 48deg;
+  --h2: 330deg;
+  --h3: 284deg;
+  --h4: 212deg;
+  --h5: 197deg;
+  --h6: 135deg;
+  background:
+    radial-gradient(240px 240px at 10% 14%, oklch(0.82 0.14 var(--h1) / 0.8), oklch(0.82 0.14 var(--h1) / 0) 60%),
+    radial-gradient(300px 300px at 82% 16%, oklch(0.82 0.14 var(--h2) / 0.8), oklch(0.82 0.14 var(--h2) / 0) 60%),
+    radial-gradient(260px 260px at 72% 60%, oklch(0.82 0.14 var(--h3) / 0.8), oklch(0.82 0.14 var(--h3) / 0) 60%),
+    radial-gradient(300px 300px at 50% 88%, oklch(0.82 0.14 var(--h4) / 0.8), oklch(0.82 0.14 var(--h4) / 0) 60%),
+    radial-gradient(260px 260px at 22% 72%, oklch(0.82 0.14 var(--h5) / 0.8), oklch(0.82 0.14 var(--h5) / 0) 60%),
+    radial-gradient(260px 260px at 6% 38%, oklch(0.82 0.14 var(--h6) / 0.8), oklch(0.82 0.14 var(--h6) / 0) 60%);
+  background-repeat: no-repeat;
+  background-size: 320% 320%;
+  background-origin: content-box;
+  background-clip: padding-box;
+  filter: blur(120px);
+  opacity: 0.6;
+  animation:
+    heroMesh 36000ms ease-in-out infinite,
+    hueSwing1 8000ms linear 0ms infinite,
+    hueSwing2 8000ms linear 200ms infinite,
+    hueSwing3 8000ms linear 400ms infinite,
+    hueSwing4 8000ms linear 600ms infinite,
+    hueSwing5 8000ms linear 800ms infinite,
+    hueSwing6 8000ms linear 1000ms infinite;
+  will-change: background-position, transform;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.15) 85%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.15) 85%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes heroMesh {
+  0% {
+    background-position: 10% 14%, 82% 16%, 72% 60%, 50% 88%, 22% 72%, 6% 38%;
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    background-position: 12% 16%, 80% 18%, 70% 62%, 48% 86%, 24% 70%, 8% 40%;
+    transform: translate3d(3px, -3px, 0);
+  }
+  50% {
+    background-position: 10% 14%, 82% 16%, 72% 60%, 50% 88%, 22% 72%, 6% 38%;
+    transform: translate3d(0, 0, 0);
+  }
+  75% {
+    background-position: 8% 12%, 84% 14%, 74% 58%, 52% 90%, 20% 74%, 4% 36%;
+    transform: translate3d(-3px, 3px, 0);
+  }
+  100% {
+    background-position: 10% 14%, 82% 16%, 72% 60%, 50% 88%, 22% 72%, 6% 38%;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hueSwing1 {
+  0%   { --h1: 48deg; }
+  50%  { --h1: 138deg; }
+  100% { --h1: 48deg; }
+}
+@keyframes hueSwing2 {
+  0%   { --h2: 330deg; }
+  50%  { --h2: 420deg; }
+  100% { --h2: 330deg; }
+}
+@keyframes hueSwing3 {
+  0%   { --h3: 284deg; }
+  50%  { --h3: 374deg; }
+  100% { --h3: 284deg; }
+}
+@keyframes hueSwing4 {
+  0%   { --h4: 212deg; }
+  50%  { --h4: 302deg; }
+  100% { --h4: 212deg; }
+}
+@keyframes hueSwing5 {
+  0%   { --h5: 197deg; }
+  50%  { --h5: 287deg; }
+  100% { --h5: 197deg; }
+}
+@keyframes hueSwing6 {
+  0%   { --h6: 135deg; }
+  50%  { --h6: 225deg; }
+  100% { --h6: 135deg; }
+}
+
+/* ===== Bubble Animations (keyword hover effects) ===== */
+@keyframes bubbleA {
+  0%   { transform: translate(-12px, -10px) rotate(0deg); }
+  25%  { transform: translate(8px, -14px) rotate(8deg); }
+  50%  { transform: translate(16px, 6px) rotate(0deg); }
+  75%  { transform: translate(-6px, 10px) rotate(-6deg); }
+  100% { transform: translate(-12px, -10px) rotate(0deg); }
+}
+@keyframes bubbleB {
+  0%   { transform: translate(22px, -8px) rotate(0deg); }
+  25%  { transform: translate(10px, 12px) rotate(-6deg); }
+  50%  { transform: translate(-18px, 6px) rotate(0deg); }
+  75%  { transform: translate(-8px, -12px) rotate(6deg); }
+  100% { transform: translate(22px, -8px) rotate(0deg); }
+}
+@keyframes bubbleC {
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  25%  { transform: translate(14px, -6px) rotate(10deg); }
+  50%  { transform: translate(8px, 12px) rotate(0deg); }
+  75%  { transform: translate(-10px, 6px) rotate(-8deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes bubbleP1 {
+  0%   { transform: translate(-10px, -8px) rotate(0deg); }
+  25%  { transform: translate(12px, -6px) rotate(6deg); }
+  50%  { transform: translate(18px, 8px) rotate(0deg); }
+  75%  { transform: translate(-8px, 10px) rotate(-5deg); }
+  100% { transform: translate(-10px, -8px) rotate(0deg); }
+}
+@keyframes bubbleP2 {
+  0%   { transform: translate(16px, -12px) rotate(0deg); }
+  25%  { transform: translate(6px, 10px) rotate(-6deg); }
+  50%  { transform: translate(-16px, 4px) rotate(0deg); }
+  75%  { transform: translate(-6px, -10px) rotate(6deg); }
+  100% { transform: translate(16px, -12px) rotate(0deg); }
+}
+@keyframes bubbleP3 {
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  25%  { transform: translate(12px, -4px) rotate(8deg); }
+  50%  { transform: translate(6px, 12px) rotate(0deg); }
+  75%  { transform: translate(-12px, 6px) rotate(-6deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}
+@keyframes bubbleS1 {
+  0%   { transform: translate(-14px, -6px) rotate(0deg); }
+  25%  { transform: translate(10px, -10px) rotate(7deg); }
+  50%  { transform: translate(16px, 10px) rotate(0deg); }
+  75%  { transform: translate(-8px, 12px) rotate(-5deg); }
+  100% { transform: translate(-14px, -6px) rotate(0deg); }
+}
+@keyframes bubbleS2 {
+  0%   { transform: translate(18px, -8px) rotate(0deg); }
+  25%  { transform: translate(6px, 12px) rotate(-6deg); }
+  50%  { transform: translate(-20px, 6px) rotate(0deg); }
+  75%  { transform: translate(-6px, -12px) rotate(6deg); }
+  100% { transform: translate(18px, -8px) rotate(0deg); }
+}
+@keyframes bubbleS3 {
+  0%   { transform: translate(0px, 0px) rotate(0deg); }
+  25%  { transform: translate(10px, -6px) rotate(9deg); }
+  50%  { transform: translate(8px, 14px) rotate(0deg); }
+  75%  { transform: translate(-14px, 8px) rotate(-7deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
+}

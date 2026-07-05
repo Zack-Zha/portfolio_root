@@ -1,0 +1,33 @@
+---
+// SiteLayout.astro — Global layout shell
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import '../../styles/global.css';
+import '../../styles/animations.css';
+
+export interface Props {
+  title?: string;
+  showAmbient?: boolean;
+}
+
+const { title = 'Portfolio', showAmbient = false } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="cn" class="scroll-smooth font-sans overflow-x-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="min-h-screen bg-[#EDEDED] font-geist text-black overflow-x-hidden relative">
+      {showAmbient && <div class="hero-ambient"></div>}
+      <div class="min-w-[1840px] max-w-[1920px] mx-auto flex flex-col gap-[120px] shrink-0 relative z-10">
+        <Header />
+        <slot />
+        <Footer />
+      </div>
+    </div>
+  </body>
+</html>
