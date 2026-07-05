@@ -40,28 +40,28 @@ export const mobileExplorations: MobileExploration[] = [
     id: 'mindcharge',
     title: {
       en: 'Mindcharge: AI Mental Wellness Coach',
-      zh: 'Mindcharge：AI 心理健康教练',
+      zh: '心力速充站：AI 心理健康教练',
     },
     description: {
       en: "Redesigning an AI-powered mental wellness experience to be more user-friendly.",
-      zh: '重新设计 AI 驱动的心理健康体验，使其更友好易用。现已推出小程序：心力速充站。',
+      zh: '重新设计 AI 驱动的心理健康体验，使其更友好易用。现已推出小程序。',
     },
     image: '/assets/mobile-exploration-3.png',
-    alt: { en: 'Mindcharge: AI Mental Wellness Coach', zh: 'Mindcharge：AI 心理健康教练' },
+    alt: { en: 'Mindcharge: AI Mental Wellness Coach', zh: '心力速充站：AI 心理健康教练' },
     href: '#',
   },
   {
     id: 'aura',
     title: {
       en: 'Aura: Social APP for Prime Time',
-      zh: 'Aura：熟龄人群的社交应用',
+      zh: '闪闪发光：熟龄人群的社交应用',
     },
     description: {
       en: 'An inspiring community for older adults to connect, share wisdom, and spark new passions.',
-      zh: '一个鼓励长者彼此连接、分享智慧、激发新热情的社区。现已推出小程序：闪闪发光俱乐部。',
+      zh: '一个鼓励长者彼此连接、分享智慧、激发新热情的社区。小程序开发中。',
     },
     image: '/assets/mobile-exploration-4.png',
-    alt: { en: 'Aura: Social APP for Prime Time', zh: 'Aura：熟龄人群的社交应用' },
+    alt: { en: 'Aura: Social APP for Prime Time', zh: '闪闪发光：熟龄人群的社交应用' },
     href: '#',
   },
 ];
