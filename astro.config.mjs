@@ -11,6 +11,13 @@ export default defineConfig({
       applyBaseStyles: false,
     }),
   ],
+  vite: {
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
+    },
+  },
   redirects: {
     '/about.html': '/about',
     '/gallery.html': '/gallery',
