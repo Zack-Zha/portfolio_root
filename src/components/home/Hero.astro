@@ -134,7 +134,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
           {' '}
           <!-- Media Ecology -->
           <span id="mediaEcologyGroup" class="relative inline-block text-black/90 group">
-            <span class="relative inline-block align-middle">
+            <span class="relative inline-block hero-en-highlight">
               <span class="relative z-0" aria-label="Media Ecology.">
                 <span class="hero-char-word">
                   <span class="hero-char" aria-hidden="true">M</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">a</span>
@@ -156,7 +156,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
           <span class="hero-char-word"><span class="hero-char" aria-hidden="true">G</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">u</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
           {' '}
           <!-- Philosophy -->
-          <span class="relative inline-block text-black/90 group align-middle">
+          <span class="relative inline-block text-black/90 group hero-en-highlight">
             <span class="relative z-0 hero-char-word" aria-label="Philosophy.">
               <span class="hero-char" aria-hidden="true">P</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">p</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
             </span>
@@ -173,7 +173,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
           <span class="hero-char-word"><span class="hero-char" aria-hidden="true">C</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
           {' '}
           <!-- Systems -->
-          <span class="relative inline-block text-black/90 group align-middle">
+          <span class="relative inline-block text-black/90 group hero-en-highlight">
             <span class="relative z-0 hero-char-word" aria-label="Systems.">
               <span class="hero-char" aria-hidden="true">S</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">m</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">.</span>
             </span>
@@ -263,7 +263,8 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
       white-space: nowrap;
     }
 
-    .hero-zh-highlight {
+    .hero-zh-highlight,
+    .hero-en-highlight {
       vertical-align: baseline;
       line-height: inherit;
     }
@@ -272,6 +273,12 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
     .hero-zh-highlight,
     .hero-zh-phrase .hero-char-word,
     .hero-zh-phrase .hero-char {
+      vertical-align: baseline;
+    }
+
+    .hero-en-highlight,
+    .hero-en-highlight .hero-char-word,
+    .hero-en-highlight .hero-char {
       vertical-align: baseline;
     }
 
