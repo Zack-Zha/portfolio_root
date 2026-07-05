@@ -2,14 +2,15 @@
 // ProjectCard.astro — Reusable project card with phone mockup, glass overlay, and SVG blur
 export interface Props {
   title: string;
-  subtitle?: string;
   href: string;
   image: string;
   alt: string;
+  cardId: string;
 }
 
-const { title, subtitle = '', href, image, alt } = Astro.props;
+const { title, href, image, alt, cardId } = Astro.props;
 const titleLines = title.split('\n');
+const clipId = `bgblur_${cardId}`;
 ---
 
 <a
@@ -20,7 +21,9 @@ const titleLines = title.split('\n');
   <div class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
     <span class="relative inline-block leading-[1.1]">
       <span class="block relative z-20">
-        {titleLines.map((line) => <>{line}<br /></>)}
+        {titleLines.map((line, i) => (
+          <>{i > 0 && <br />}{line}</>
+        ))}
       </span>
       <span class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100 animate-[gradientMesh_6000ms_linear_infinite] [will-change:background-position] z-10"></span>
     </span>
@@ -46,7 +49,7 @@ const titleLines = title.split('\n');
       <foreignObject x="-12" y="-12" width="556" height="444.998">
         <div
           xmlns="http://www.w3.org/1999/xhtml"
-          style="backdrop-filter:blur(6px);clip-path:url(#bgblur_clip_path);height:100%;width:100%"
+          style={`backdrop-filter:blur(6px);clip-path:url(#${clipId});height:100%;width:100%`}
         ></div>
       </foreignObject>
       <path
@@ -56,7 +59,7 @@ const titleLines = title.split('\n');
         fill-opacity="0.01"
       />
       <defs>
-        <clipPath id="bgblur_clip_path" transform="translate(12 12)">
+        <clipPath id={clipId} transform="translate(12 12)">
           <path
             d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z"
           />

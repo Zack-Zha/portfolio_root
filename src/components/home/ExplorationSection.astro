@@ -1,0 +1,19 @@
+---
+import { explorations } from '@/data/explorations';
+---
+
+<div class="flex flex-col gap-[56px] px-[80px]">
+  <div class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
+  <div class="flex items-center gap-[16px] flex-nowrap">
+    {explorations.map((item) => (
+      <div class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
+        <img
+          src={item.image}
+          alt={item.alt}
+          class={`w-full object-cover${item.isCircle ? ' rounded-full' : ''}`}
+        />
+        <div class="text-center text-[20px] leading-[1.3em]">{item.title}</div>
+      </div>
+    ))}
+  </div>
+</div>

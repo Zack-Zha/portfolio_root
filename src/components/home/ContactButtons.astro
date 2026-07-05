@@ -1,0 +1,16 @@
+---
+import ResumeButton from './ResumeButton';
+---
+
+<div class="flex items-center gap-[4px] flex-nowrap">
+  <!-- Email Button -->
+  <a href="mailto:chengkezha@gmail.com" target="_blank"
+    class="w-[120px] h-[120px] rounded-[60px] bg-white/50 border border-white flex items-center justify-center shrink-0 cursor-pointer transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:bg-white/10">
+    <svg height="43" viewBox="0 0 24 24" fill="none" class="opacity-40">
+      <rect x="4" y="6" width="16" height="12" rx="2" ry="2" stroke="black" stroke-width="1.5" fill="none"></rect>
+      <path d="M4 7l8 6 8-6" stroke="black" stroke-width="1.5" fill="none"></path>
+    </svg>
+  </a>
+  <!-- Resume Button (React island) -->
+  <ResumeButton client:load />
+</div>
