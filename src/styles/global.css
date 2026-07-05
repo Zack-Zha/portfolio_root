@@ -20,16 +20,67 @@
 }
 
 /* ===== Base Styles ===== */
+:root {
+  --desktop-scale: 1;
+  --desktop-width: 1920px;
+  --page-bg: #EDEDED;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
-  background: #EDEDED;
+  background: var(--page-bg);
 }
 
 body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background: #EDEDED;
+  background: var(--page-bg);
   font-family: 'Geist', sans-serif;
+}
+
+/* ===== Desktop Scaling System ===== */
+.desktop-layout {
+  display: block;
+  background: var(--page-bg);
+}
+
+.desktop-scale-host {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--page-bg);
+}
+
+.desktop-stage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--desktop-width);
+  transform: translateX(-50%) scale(var(--desktop-scale));
+  transform-origin: top center;
+  background: var(--page-bg);
+}
+
+.desktop-canvas {
+  width: var(--desktop-width);
+  min-height: 100vh;
+  background: var(--page-bg);
+}
+
+.mobile-layout {
+  display: none;
+  min-height: 100vh;
+  background: var(--page-bg);
+}
+
+@media (max-width: 767px) {
+  .desktop-layout {
+    display: none;
+  }
+
+  .mobile-layout {
+    display: block;
+  }
 }

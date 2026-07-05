@@ -1,9 +1,9 @@
 ---
-// Header.astro — Fixed navigation bar with backdrop blur
+// Header.astro — Fixed navigation bar with desktop scaling
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 bg-[rgba(237,237,237,0.2)] backdrop-blur-[24px]">
-  <div class="min-w-[1840px] max-w-[1920px] w-full mx-auto flex items-center justify-between px-20 py-6">
+  <div class="desktop-header-frame w-[1920px] flex items-center justify-between px-20 py-6">
     <div
       id="homeTitle"
       class="text-xl font-medium leading-[1.3em] cursor-pointer transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/50"
@@ -32,6 +32,21 @@
     </nav>
   </div>
 </header>
+
+<style>
+  .desktop-header-frame {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) scale(var(--desktop-scale));
+    transform-origin: top center;
+  }
+
+  @media (max-width: 767px) {
+    header {
+      display: none;
+    }
+  }
+</style>
 
 <script>
   const ht = document.getElementById('homeTitle');

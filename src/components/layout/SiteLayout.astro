@@ -1,7 +1,8 @@
 ---
-// SiteLayout.astro — Global layout shell
+// SiteLayout.astro — Global layout shell with desktop scaling
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import MobilePlaceholder from './MobilePlaceholder.astro';
 import '../../styles/global.css';
 import '../../styles/animations.css';
 
@@ -14,20 +15,63 @@ const { title = 'Portfolio', showAmbient = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="cn" class="scroll-smooth font-sans overflow-x-hidden">
+<html lang="cn" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
   </head>
   <body>
-    <div class="min-h-screen bg-[#EDEDED] font-geist text-black relative">
-      {showAmbient && <div class="hero-ambient"></div>}
-      <div class="min-w-[1840px] max-w-[1920px] mx-auto flex flex-col gap-[120px] shrink-0 relative z-10">
-        <Header />
-        <slot />
-        <Footer />
+    <!-- Desktop layout -->
+    <div id="desktop-layout" class="desktop-layout">
+      <Header />
+
+      <div id="desktop-scale-host" class="desktop-scale-host">
+        <div id="desktop-stage" class="desktop-stage">
+          {showAmbient && <div class="hero-ambient"></div>}
+
+          <main class="desktop-canvas font-geist text-black relative z-10 flex flex-col gap-[120px] shrink-0">
+            <slot />
+            <Footer />
+          </main>
+        </div>
       </div>
     </div>
+
+    <!-- Mobile layout -->
+    <div id="mobile-layout" class="mobile-layout">
+      <MobilePlaceholder />
+    </div>
+
+    <script>
+      const DESIGN_WIDTH = 1920;
+      const MOBILE_BREAKPOINT = 768;
+
+      function syncDesktopScale() {
+        const host = document.getElementById('desktop-scale-host');
+        const stage = document.getElementById('desktop-stage');
+        if (!host || !stage) return;
+
+        const width = window.innerWidth;
+        if (width < MOBILE_BREAKPOINT) return;
+
+        const scale = Math.min(1, width / DESIGN_WIDTH);
+        document.documentElement.style.setProperty('--desktop-scale', String(scale));
+
+        requestAnimationFrame(() => {
+          host.style.height = (stage.scrollHeight * scale) + 'px';
+        });
+      }
+
+      syncDesktopScale();
+      window.addEventListener('resize', syncDesktopScale);
+
+      if ('ResizeObserver' in window) {
+        const stage = document.getElementById('desktop-stage');
+        if (stage) {
+          new ResizeObserver(syncDesktopScale).observe(stage);
+        }
+      }
+    </script>
   </body>
 </html>
