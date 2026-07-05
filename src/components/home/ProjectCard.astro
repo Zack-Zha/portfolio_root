@@ -12,7 +12,6 @@ export interface Props {
 const { title, href, image, alt, cardId, revealDelay } = Astro.props;
 const titleLines = title.split('\n');
 const clipId = `bgblur_${cardId}`;
-const delayAttr = revealDelay !== undefined ? `data-reveal-delay="${revealDelay}"` : '';
 ---
 
 <!-- Root <a> does NOT participate in reveal — keeps backdrop-filter clean -->
@@ -20,11 +19,8 @@ const delayAttr = revealDelay !== undefined ? `data-reveal-delay="${revealDelay}
   href={href}
   class="flex w-[532px] h-[746px] flex-col justify-start items-center relative group hover:cursor-pointer"
 >
-  <!-- Text overlay with reveal (opacity + translateY, no blur) -->
-  <div
-    data-reveal data-reveal-no-blur {delayAttr}
-    class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']"
-  >
+  <!-- Text overlay — STATIC, no reveal -->
+  <div class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
     <span class="relative inline-block leading-[1.1]">
       <span class="block relative z-20">
         {titleLines.map((line, i) => (
@@ -36,7 +32,7 @@ const delayAttr = revealDelay !== undefined ? `data-reveal-delay="${revealDelay}
   </div>
 
   <!-- Phone mockup wrapped — wrapper handles reveal, img handles hover transform -->
-  <div data-reveal data-reveal-no-blur {delayAttr} class="w-[338px] h-[690px]">
+  <div data-reveal data-reveal-no-blur data-reveal-delay={revealDelay} class="w-[338px] h-[690px]">
     <img
       src={image}
       alt={alt}
@@ -44,8 +40,8 @@ const delayAttr = revealDelay !== undefined ? `data-reveal-delay="${revealDelay}
     />
   </div>
 
-  <!-- Glass reflection wrapped — wrapper handles reveal, img handles hover brightness -->
-  <div data-reveal data-reveal-no-blur {delayAttr} class="absolute z-10 mt-[325px]">
+  <!-- Glass reflection — STATIC, no reveal -->
+  <div class="absolute z-10 mt-[325px]">
     <img
       src="/assets/glass.png"
       alt=""
