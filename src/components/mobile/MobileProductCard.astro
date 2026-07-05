@@ -6,9 +6,10 @@ export interface Props {
   image: string;
   alt: string;
   cardId: string;
+  glowDelay?: number;
 }
 
-const { title, href, image, alt, cardId } = Astro.props;
+const { title, href, image, alt, cardId, glowDelay = 0 } = Astro.props;
 const titleLines = title.split('\n');
 const clipId = `m_bgblur_${cardId}`;
 const SCALE = 620 / 532;
@@ -31,8 +32,8 @@ const SCALE = 620 / 532;
               <>{i > 0 && <br />}{line}</>
             ))}
           </span>
-          <!-- Static glow layer — no hover trigger on mobile -->
-          <span class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] opacity-0 z-10"></span>
+          <!-- Auto-play glow layer (no hover on mobile) -->
+          <span class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] z-10 mobile-product-auto-glow" style={`animation-delay: ${glowDelay}ms, ${glowDelay}ms;`}></span>
         </span>
       </div>
 
@@ -80,3 +81,36 @@ const SCALE = 620 / 532;
     </a>
   </div>
 </div>
+
+<style>
+  .mobile-product-auto-glow {
+    opacity: 0.58;
+    animation:
+      gradientMesh 9000ms linear infinite,
+      mobileProductGlowPulse 6400ms ease-in-out infinite;
+    will-change: background-position, opacity;
+  }
+
+  @keyframes mobileProductGlowPulse {
+    0%, 100% {
+      opacity: 0.36;
+      transform: scale(0.98);
+    }
+    45% {
+      opacity: 0.68;
+      transform: scale(1.02);
+    }
+    70% {
+      opacity: 0.48;
+      transform: scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-product-auto-glow {
+      animation: none;
+      opacity: 0.42;
+      transform: none;
+    }
+  }
+</style>

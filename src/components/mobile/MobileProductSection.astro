@@ -9,13 +9,14 @@ import { projects } from '@/data/projects';
   </div>
   <div class="self-stretch pt-[32px] pb-[48px] flex justify-center">
     <div class="flex flex-col items-center gap-[120px]">
-      {projects.map((p) => (
+      {projects.map((p, index) => (
         <MobileProductCard
           title={p.title}
           href={p.href}
           image={p.image}
           alt={p.alt}
           cardId={p.id}
+          glowDelay={index * 1400}
         />
       ))}
     </div>
