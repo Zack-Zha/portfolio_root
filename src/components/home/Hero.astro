@@ -10,6 +10,11 @@ export interface Props {
 const { locale = 'en' } = Astro.props;
 const isZh = locale === 'zh';
 
+// Name chars for identical visible + glow structure
+const zackChars = isZh
+  ? ['Z', 'a', 'c', 'k', ' ', '查', '成', '柯', '。']
+  : ['Z', 'a', 'c', 'k', '.'];
+
 // Hero text
 const hey = l(t.hero.hey, locale);
 const heroName = l(t.hero.name, locale);
@@ -53,12 +58,21 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
         <!-- "Zack." with glow -->
         <div id="zackTitle"
           class="group relative text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]">
+          <!-- Visible layer: character reveal -->
           <span class="relative z-0 hero-char-word" aria-label={heroName}>
-            {isZh ? (<><span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true"> </span><span class="hero-char" aria-hidden="true">查</span><span class="hero-char" aria-hidden="true">成</span><span class="hero-char" aria-hidden="true">柯</span><span class="hero-char" aria-hidden="true">。</span></>) : (<><span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true">.</span></>)}
+            {zackChars.map(ch => ch === ' '
+              ? <span class="hero-char hero-char-space" aria-hidden="true">{' '}</span>
+              : <span class="hero-char" aria-hidden="true">{ch}</span>
+            )}
           </span>
+          <!-- Glow overlay: identical character structure, no independent text layout -->
           <span aria-hidden="true"
-            class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
-          >{heroName}</span>
+            class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">
+            {zackChars.map(ch => ch === ' '
+              ? <span class="hero-glow-char hero-char-space">{' '}</span>
+              : <span class="hero-glow-char">{ch}</span>
+            )}
+          </span>
         </div>
       </div>
 
@@ -259,6 +273,14 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
     .hero-zh-phrase .hero-char-word,
     .hero-zh-phrase .hero-char {
       vertical-align: baseline;
+    }
+
+    .hero-glow-char {
+      display: inline-block;
+    }
+
+    .hero-char-space {
+      width: 0.28em;
     }
 
     @media (prefers-reduced-motion: reduce) {
