@@ -33,9 +33,20 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     filter: blur(0);
   }
 
-  /* No-blur mode — for elements with internal backdrop-filter (e.g. ProjectCard) */
+  /*
+   * No-blur mode — for elements containing internal backdrop-filter / foreignObject.
+   * blur(0px) still creates a compositor layer that contaminates backdrop-filter sampling.
+   * Must use filter: none and exclude filter from the transition entirely.
+   */
   [data-reveal][data-reveal-no-blur] {
-    --reveal-blur: 0px;
+    filter: none !important;
+    transition:
+      opacity var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+      transform var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1));
+  }
+
+  [data-reveal][data-reveal-no-blur].is-revealed {
+    filter: none !important;
   }
 
   @media (prefers-reduced-motion: reduce) {
