@@ -6,10 +6,9 @@ export interface Props {
   image: string;
   alt: string;
   cardId: string;
-  revealDelay?: number;
 }
 
-const { title, href, image, alt, cardId, revealDelay } = Astro.props;
+const { title, href, image, alt, cardId } = Astro.props;
 const titleLines = title.split('\n');
 const clipId = `m_bgblur_${cardId}`;
 const SCALE = 620 / 532;
@@ -37,8 +36,8 @@ const SCALE = 620 / 532;
         </span>
       </div>
 
-      <!-- Phone mockup wrapped — reveal only on phone -->
-      <div data-reveal data-reveal-no-blur data-reveal-delay={revealDelay} class="w-[338px] h-[690px]">
+      <!-- Phone mockup — reveal only on phone, light & responsive -->
+      <div data-reveal data-reveal-no-blur data-reveal-duration="900" data-reveal-y="24" data-reveal-blur="0" class="w-[338px] h-[690px]">
         <img
           src={image}
           alt={alt}

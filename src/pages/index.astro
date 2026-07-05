@@ -71,45 +71,41 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
 
 <script>
   /**
-   * Reveal animation system — IntersectionObserver with batch-sort-flush.
+   * Reveal animation system.
    *
-   * On mobile, entries that intersect in the same frame are collected, sorted
-   * by visual position (top-to-bottom), then revealed in DOM order. This
-   * prevents lower elements from "jumping the queue" ahead of upper elements.
+   * IntersectionObserver detects when elements enter the viewport. On mobile
+   * a light batch-sort-flush ensures elements appear top-to-bottom instead
+   * of racing. The scheduler uses a Set (object identity) for dedup — never
+   * string keys that can collide across different elements.
    *
-   * Markup:
-   *   <div data-reveal>Standalone element</div>
-   *
-   *   <div data-reveal-group="260">
-   *     <div data-reveal>Child 1</div>   ← must be DIRECT child of group
+   *   <div data-reveal>                          Standalone
+   *   <div data-reveal-group="260">              Group container
+   *     <div data-reveal>Child 1</div>           Must be DIRECT child
    *     <div data-reveal>Child 2</div>
    *   </div>
    *
-   * Per-element overrides:
-   *   data-reveal-delay="440"       Fixed reveal delay (ms) — overrides all stagger
-   *   data-reveal-duration="1100"   Transition duration (ms)
-   *   data-reveal-y="36"            TranslateY offset (px)
-   *   data-reveal-blur="5"          Blur amount (px)
-   *   data-reveal-no-blur           Disable blur (for elements with backdrop-filter)
-   *   data-reveal-reset-transform   Clean up compositor layer after animation
+   *   data-reveal-delay="440"        Fixed reveal delay (ms) — overrides stagger
+   *   data-reveal-duration="900"     Transition duration (ms)
+   *   data-reveal-y="24"             TranslateY offset (px)
+   *   data-reveal-blur="2"           Blur amount (px)
+   *   data-reveal-no-blur            Disable blur (backdrop-filter compatibility)
+   *   data-reveal-reset-transform    Remove compositor layer after animation
    */
 
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
   const DEFAULTS = {
-    duration: isMobile ? 1150 : 1150,
-    y:        isMobile ? 36   : 32,
-    blur:     isMobile ? 5    : 8,
-    stagger:  isMobile ? 260  : 220,
-    // Standalone items in same batch get this stagger so they don't all pop at once
-    viewportStagger: isMobile ? 140 : 80,
+    duration: isMobile ? 1050 : 1150,
+    y:        isMobile ? 32   : 32,
+    blur:     isMobile ? 4    : 8,
+    stagger:  isMobile ? 240  : 220,
+    viewportStagger: isMobile ? 80 : 0,
     ease:     'cubic-bezier(0.22, 1, 0.36, 1)',
   };
 
-  // ── applyReveal ──────────────────────────────────────────────────────
+  // ── applyReveal ────────────────────────────────────────────────
 
   function applyReveal(el, delayMs) {
-    // Per-element fixed delay always wins
     if (el.dataset.revealDelay !== undefined) {
       delayMs = parseInt(el.dataset.revealDelay, 10);
     }
@@ -140,7 +136,7 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     }
   }
 
-  // ── processGroup ─────────────────────────────────────────────────────
+  // ── processGroup ───────────────────────────────────────────────
 
   function processGroup(group) {
     if (group.dataset.revealGroupProcessed === '1') return;
@@ -157,86 +153,53 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     });
   }
 
-  // ── batch-sort-flush scheduler ───────────────────────────────────────
+  // ── scheduler (Set-based dedup, no string keys) ───────────────
 
-  var pendingEls = [];
+  var pending = new Set();
   var flushScheduled = false;
 
   function flushReveals() {
     flushScheduled = false;
 
-    // Deduplicate and filter out already-handled items
-    var seen = {};
+    // Drain pending set into an array, filter already-handled
     var items = [];
-    for (var i = 0; i < pendingEls.length; i++) {
-      var el = pendingEls[i];
-      if (el.dataset.revealProcessed === '1') continue;
-      // Deduplicate by a stable key
-      var key = el.dataset.revealKey;
-      if (!key) {
-        // Build a path-based key: tagName + position among siblings
-        var path = el.tagName;
-        var p = el.parentNode;
-        while (p && p !== document.body) {
-          if (p.hasAttribute && p.hasAttribute('data-reveal-group')) {
-            path = '[group]' + path;
-          }
-          p = p.parentNode;
-        }
-        key = path;
-        el.dataset.revealKey = key;
+    pending.forEach(function (el) {
+      if (!el.classList.contains('is-revealed') && el.dataset.revealProcessed !== '1') {
+        items.push(el);
       }
-      if (seen[key]) continue;
-      seen[key] = true;
-      items.push(el);
-    }
-    pendingEls.length = 0;
+    });
+    pending.clear();
 
     if (!items.length) return;
 
-    // On mobile, sort by visual position so upper elements always fire first
+    // On mobile, sort by getBoundingClientRect top so upper elements fire first
     if (isMobile) {
       items.sort(function (a, b) {
-        var aTop = a.getBoundingClientRect().top;
-        var bTop = b.getBoundingClientRect().top;
-        if (Math.abs(aTop - bTop) > 6) return aTop - bTop;
-        // Same row — use document order
+        var d = a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+        if (Math.abs(d) > 6) return d;
         return (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1;
       });
     }
 
-    // Track groups already processed in this flush
-    var processedGroups = {};
     var standaloneIdx = 0;
 
     for (var j = 0; j < items.length; j++) {
       var item = items[j];
-      if (item.dataset.revealProcessed === '1') continue;
+      if (item.classList.contains('is-revealed') || item.dataset.revealProcessed === '1') continue;
 
       var group = item.closest('[data-reveal-group]');
 
       if (group) {
-        // Element is inside a group — trigger the whole group once per flush
-        var gid = group.dataset.revealGroupId;
-        if (!gid) {
-          gid = 'g' + Math.random().toString(36).slice(2, 8);
-          group.dataset.revealGroupId = gid;
-        }
-        if (!processedGroups[gid]) {
-          processedGroups[gid] = true;
-          processGroup(group);
-        }
-        // This child was either just revealed by processGroup,
-        // or the group was already processed earlier. Either way, unobserve.
-        if (item.dataset.revealProcessed !== '1') {
+        processGroup(group);
+        // If still not revealed (shouldn't happen), reveal now
+        if (!item.classList.contains('is-revealed') && item.dataset.revealProcessed !== '1') {
           item.dataset.revealProcessed = '1';
           applyReveal(item, 0);
         }
         revealObserver.unobserve(item);
       } else {
-        // Standalone — stagger within this batch
         item.dataset.revealProcessed = '1';
-        applyReveal(item, standaloneIdx * DEFAULTS.viewportStagger);
+        applyReveal(item, isMobile ? standaloneIdx * DEFAULTS.viewportStagger : 0);
         standaloneIdx++;
         revealObserver.unobserve(item);
       }
@@ -249,18 +212,18 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     requestAnimationFrame(flushReveals);
   }
 
-  // ── IntersectionObserver ─────────────────────────────────────────────
+  // ── IntersectionObserver ───────────────────────────────────────
 
   var revealObserver = new IntersectionObserver(
     function (entries) {
       for (var i = 0; i < entries.length; i++) {
         if (!entries[i].isIntersecting) continue;
-        pendingEls.push(entries[i].target);
+        pending.add(entries[i].target);
       }
       scheduleFlush();
     },
     isMobile
-      ? { threshold: 0.16, rootMargin: '0px 0px -18% 0px' }
+      ? { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
       : { threshold: 0.10, rootMargin: '0px 0px -6% 0px' }
   );
 
