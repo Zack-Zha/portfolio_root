@@ -1,5 +1,5 @@
 ---
-// MobileProductCard.astro — Scaled replica of desktop ProductCard layers
+// MobileProductCard.astro — Figma mobile-native Product card (620px)
 export interface Props {
   title: string;
   href: string;
@@ -11,68 +11,83 @@ export interface Props {
 
 const { title, href, image, alt, cardId, revealDelay } = Astro.props;
 const titleLines = title.split('\n');
-const clipId = `mbgblur_${cardId}`;
+const clipId = `mblur_${cardId}`;
 ---
 
-<div class="relative w-[620px] h-[869px] overflow-hidden">
-  <div class="absolute top-0 left-0 origin-top-left scale-[1.1654]">
-    <a
-      href={href}
-      class="flex w-[532px] h-[746px] flex-col justify-start items-center relative group"
-    >
-      <!-- Text overlay — STATIC -->
-      <div class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
-        <span class="relative inline-block leading-[1.1]">
-          <span class="block relative z-20">
-            {titleLines.map((line, i) => (
-              <>{i > 0 && <br />}{line}</>
-            ))}
-          </span>
-          <span class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100 animate-[gradientMesh_6000ms_linear_infinite] [will-change:background-position] z-10"></span>
-        </span>
+<a
+  href={href}
+  class="flex flex-col items-center w-[620px] group"
+>
+  <!-- Phone mockup — reveal on wrapper -->
+  <div data-reveal data-reveal-no-blur data-reveal-delay={revealDelay} class="w-[394px] h-[804px]">
+    <img
+      src={image}
+      alt={alt}
+      class="w-[394px] h-[804px] object-contain transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]"
+    />
+  </div>
+
+  <!-- Folder + glass area -->
+  <div class="self-stretch h-[491px] px-[56px] pt-[56px] relative flex items-end">
+    <!-- Absolute layer: SVG blur + glass + shadow inside -->
+    <div class="absolute inset-0 w-[620px]">
+
+      <!-- Drop shadow SVG -->
+      <div class="absolute left-0 top-0">
+        <svg width="768" height="678" viewBox="0 0 768 678" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#mbshadow_${cardId})">
+            <path d="M649.246 93.2329C664.911 93.2329 672.743 93.2329 678.726 96.2815C683.989 98.963 688.268 103.242 690.95 108.505C693.998 114.488 693.998 122.32 693.998 137.985L693.998 492.501C693.998 508.166 693.998 515.998 690.949 521.981C688.268 527.244 683.989 531.523 678.726 534.205C672.743 537.253 664.911 537.253 649.246 537.253L118.75 537.253C103.086 537.253 95.2535 537.253 89.2704 534.205C84.0075 531.523 79.7287 527.244 77.0471 521.981C73.9985 515.998 73.9985 508.166 73.9986 492.501L73.9986 93.2329L73.9986 91.3683C73.9986 75.7037 73.9986 67.8714 77.0471 61.8883C79.7287 56.6254 84.0075 52.3466 89.2704 49.665C95.2535 46.6164 103.086 46.6164 118.75 46.6164L257.952 46.6164C268.881 46.6164 274.346 46.6164 279.689 47.3941C284.434 48.0848 289.101 49.2313 293.626 50.8179C298.721 52.6046 303.564 55.1366 313.249 60.2005L350.444 79.6488C360.128 84.7128 364.971 87.2448 370.066 89.0314C374.591 90.618 379.258 91.7646 384.003 92.4552C389.347 93.2329 394.811 93.2329 405.74 93.2329L649.246 93.2329Z" fill="white" fill-opacity="0.01" shape-rendering="crispEdges"/>
+          </g>
+          <defs>
+            <filter id={`mbshadow_${cardId}`} x="-19.234" y="0" width="806.465" height="677.103" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+              <feOffset dy="46.6165"/>
+              <feGaussianBlur stdDeviation="46.6165"/>
+              <feComposite in2="hardAlpha" operator="out"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+              <feOffset dy="23.3082"/>
+              <feGaussianBlur stdDeviation="23.3082"/>
+              <feComposite in2="hardAlpha" operator="out"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
+              <feBlend mode="normal" in2="effect1" result="effect2"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="effect2" result="shape"/>
+            </filter>
+          </defs>
+        </svg>
       </div>
 
-      <!-- Phone mockup wrapped — reveal on wrapper -->
-      <div data-reveal data-reveal-no-blur data-reveal-delay={revealDelay} class="w-[338px] h-[690px]">
-        <img
-          src={image}
-          alt={alt}
-          class="w-[338px] h-[690px] transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]"
-        />
-      </div>
-
-      <!-- Glass reflection — STATIC -->
-      <div class="absolute z-10 mt-[325px]">
-        <img
-          src="/assets/glass.png"
-          alt=""
-          class="filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]"
-        />
-      </div>
-
-      <!-- SVG backdrop blur — STATIC -->
-      <div class="absolute mt-[325px]">
-        <svg xmlns="http://www.w3.org/2000/svg" width="532" height="421" viewBox="0 0 532 421" fill="none">
-          <foreignObject x="-12" y="-12" width="556" height="444.998">
+      <!-- Backdrop blur SVG — STATIC, no reveal -->
+      <div class="absolute left-0 top-0">
+        <svg width="620" height="491" viewBox="0 0 620 491" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <foreignObject x="-13.9849" y="-13.9849" width="647.969" height="518.607">
             <div
               xmlns="http://www.w3.org/1999/xhtml"
-              style={`backdrop-filter:blur(6px);clip-path:url(#${clipId});height:100%;width:100%`}
+              style={`backdrop-filter:blur(6.99px);clip-path:url(#${clipId});height:100%;width:100%`}
             ></div>
           </foreignObject>
-          <path
-            data-figma-bg-blur-radius="12"
-            d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z"
-            fill="white" fill-opacity="0.01"
-          />
+          <path data-figma-bg-blur-radius="13.9849"
+            d="M575.247 46.6165C590.912 46.6165 598.744 46.6165 604.727 49.665C609.99 52.3466 614.269 56.6254 616.95 61.8883C619.999 67.8714 619.999 75.7037 619.999 91.3683L619.999 445.885C619.999 461.55 619.999 469.382 616.95 475.365C614.269 480.628 609.99 484.907 604.727 487.588C598.744 490.637 590.912 490.637 575.247 490.637L44.7513 490.637C29.0867 490.637 21.2544 490.637 15.2714 487.588C10.0085 484.907 5.72963 480.628 3.04806 475.365C-0.000475435 469.382 -0.000473838 461.549 -0.000470644 445.885L-0.000389229 46.6165L-0.000391993 44.7519C-0.000415211 29.0873 -0.000426819 21.2549 3.04811 15.2718C5.72967 10.009 10.0085 5.7301 15.2714 3.04852C21.2545 -1.77915e-05 29.0868 -1.77909e-05 44.7514 -1.77899e-05L183.953 -1.77806e-05C194.882 -1.77799e-05 200.347 -1.77795e-05 205.69 0.777686C210.435 1.46831 215.102 2.61488 219.627 4.20148C224.722 5.98813 229.565 8.52011 239.25 13.5841L276.445 33.0324C286.129 38.0963 290.972 40.6283 296.067 42.415C300.592 44.0016 305.259 45.1482 310.004 45.8388C315.348 46.6165 320.812 46.6165 331.741 46.6165L575.247 46.6165Z"
+            fill="white" fill-opacity="0.01"/>
           <defs>
-            <clipPath id={clipId} transform="translate(12 12)">
-              <path
-                d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z"
-              />
+            <clipPath id={clipId} transform="translate(13.9849 13.9849)">
+              <path d="M575.247 46.6165C590.912 46.6165 598.744 46.6165 604.727 49.665C609.99 52.3466 614.269 56.6254 616.95 61.8883C619.999 67.8714 619.999 75.7037 619.999 91.3683L619.999 445.885C619.999 461.55 619.999 469.382 616.95 475.365C614.269 480.628 609.99 484.907 604.727 487.588C598.744 490.637 590.912 490.637 575.247 490.637L44.7513 490.637C29.0867 490.637 21.2544 490.637 15.2714 487.588C10.0085 484.907 5.72963 480.628 3.04806 475.365C-0.000475435 469.382 -0.000473838 461.549 -0.000470644 445.885L-0.000389229 46.6165L-0.000391993 44.7519C-0.000415211 29.0873 -0.000426819 21.2549 3.04811 15.2718C5.72967 10.009 10.0085 5.7301 15.2714 3.04852C21.2545 -1.77915e-05 29.0868 -1.77909e-05 44.7514 -1.77899e-05L183.953 -1.77806e-05C194.882 -1.77799e-05 200.347 -1.77795e-05 205.69 0.777686C210.435 1.46831 215.102 2.61488 219.627 4.20148C224.722 5.98813 229.565 8.52011 239.25 13.5841L276.445 33.0324C286.129 38.0963 290.972 40.6283 296.067 42.415C300.592 44.0016 305.259 45.1482 310.004 45.8388C315.348 46.6165 320.812 46.6165 331.741 46.6165L575.247 46.6165Z"/>
             </clipPath>
           </defs>
         </svg>
       </div>
-    </a>
+
+      <!-- Glass image -->
+      <img src="/assets/glass.png" alt="" class="absolute left-0 top-0 w-[620px] h-[491px] filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]" />
+    </div>
+
+    <!-- Title text -->
+    <div class="relative z-10 text-white/75 text-[84px] font-geist font-medium leading-[1.1]">
+      {titleLines.map((line, i) => (
+        <>{i > 0 && <br />}{line}</>
+      ))}
+    </div>
   </div>
-</div>
+</a>
