@@ -6,19 +6,25 @@ export interface Props {
   image: string;
   alt: string;
   cardId: string;
+  revealDelay?: number;
 }
 
-const { title, href, image, alt, cardId } = Astro.props;
+const { title, href, image, alt, cardId, revealDelay } = Astro.props;
 const titleLines = title.split('\n');
 const clipId = `bgblur_${cardId}`;
+const delayAttr = revealDelay !== undefined ? `data-reveal-delay="${revealDelay}"` : '';
 ---
 
+<!-- Root <a> does NOT participate in reveal — keeps backdrop-filter clean -->
 <a
   href={href}
   class="flex w-[532px] h-[746px] flex-col justify-start items-center relative group hover:cursor-pointer"
 >
-  <!-- Text overlay with mesh gradient glow -->
-  <div class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
+  <!-- Text overlay with reveal (opacity + translateY, no blur) -->
+  <div
+    data-reveal data-reveal-no-blur {delayAttr}
+    class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']"
+  >
     <span class="relative inline-block leading-[1.1]">
       <span class="block relative z-20">
         {titleLines.map((line, i) => (
@@ -29,21 +35,25 @@ const clipId = `bgblur_${cardId}`;
     </span>
   </div>
 
-  <!-- Phone mockup image -->
-  <img
-    src={image}
-    alt={alt}
-    class="w-[338px] h-[690px] transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]"
-  />
+  <!-- Phone mockup wrapped — wrapper handles reveal, img handles hover transform -->
+  <div data-reveal data-reveal-no-blur {delayAttr} class="w-[338px] h-[690px]">
+    <img
+      src={image}
+      alt={alt}
+      class="w-[338px] h-[690px] transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]"
+    />
+  </div>
 
-  <!-- Glass reflection overlay -->
-  <img
-    src="/assets/glass.png"
-    alt=""
-    class="absolute z-10 mt-[325px] filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]"
-  />
+  <!-- Glass reflection wrapped — wrapper handles reveal, img handles hover brightness -->
+  <div data-reveal data-reveal-no-blur {delayAttr} class="absolute z-10 mt-[325px]">
+    <img
+      src="/assets/glass.png"
+      alt=""
+      class="filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]"
+    />
+  </div>
 
-  <!-- SVG backdrop blur effect -->
+  <!-- SVG backdrop blur — STATIC, never participates in reveal -->
   <div class="absolute mt-[325px]">
     <svg xmlns="http://www.w3.org/2000/svg" width="532" height="421" viewBox="0 0 532 421" fill="none">
       <foreignObject x="-12" y="-12" width="556" height="444.998">
