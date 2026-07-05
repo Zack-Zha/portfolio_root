@@ -44,7 +44,7 @@ export const mobileExplorations: MobileExploration[] = [
     },
     description: {
       en: "Redesigning an AI-powered mental wellness experience to be more user-friendly.",
-      zh: '重设计 AI 驱动的心理健康体验，使其更直观、更友好。',
+      zh: '重新设计 AI 驱动的心理健康体验，使其更友好易用。现已推出小程序：心力速充站。',
     },
     image: '/assets/mobile-exploration-3.png',
     alt: { en: 'Mindcharge: AI Mental Wellness Coach', zh: 'Mindcharge：AI 心理健康教练' },
@@ -58,7 +58,7 @@ export const mobileExplorations: MobileExploration[] = [
     },
     description: {
       en: 'An inspiring community for older adults to connect, share wisdom, and spark new passions.',
-      zh: '一个鼓励长者彼此连接、分享智慧、激发新热情的社区。',
+      zh: '一个鼓励长者彼此连接、分享智慧、激发新热情的社区。现已推出小程序：闪闪发光俱乐部。',
     },
     image: '/assets/mobile-exploration-4.png',
     alt: { en: 'Aura: Social APP for Prime Time', zh: 'Aura：熟龄人群的社交应用' },
