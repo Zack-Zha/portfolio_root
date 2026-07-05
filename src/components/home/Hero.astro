@@ -45,7 +45,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
     <div class="flex flex-col gap-0 grow hero-char-reveal-root">
       <!-- "Hey, I'm" + Avatar + "Zack." -->
       <div id="introHover" class={isZh ? 'flex items-end gap-[16px] group' : 'w-[640px] flex items-end gap-[16px] group'}>
-        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40 whitespace-nowrap" aria-label={hey}>
+        <div class={isZh ? 'text-[80px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40 whitespace-nowrap' : 'text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40 whitespace-nowrap'} aria-label={hey}>
           {isZh ? (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">你</span><span class="hero-char" aria-hidden="true">好</span><span class="hero-char" aria-hidden="true">，</span><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">是</span></span></>) : (<><span class="hero-char-word"><span class="hero-char" aria-hidden="true">H</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">,</span></span>{' '}<span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span><span class="hero-char" aria-hidden="true">&rsquo;</span><span class="hero-char" aria-hidden="true">m</span></span></>)}
         </div>
         <!-- Avatar swap on hover -->
@@ -57,7 +57,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
         </div>
         <!-- "Zack." with glow -->
         <div id="zackTitle"
-          class="group relative text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]">
+          class={`group relative ${isZh ? 'text-[80px]' : 'text-[72px]'} leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]`}>
           <!-- Visible layer: character reveal -->
           <span class="relative z-0 hero-char-word" aria-label={heroName}>
             {zackChars.map(ch => ch === ' '
@@ -79,7 +79,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
       <!-- Tagline -->
       {isZh ? (
         /* ── Chinese tagline ── */
-        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={taglineAria}>
+        <div class="text-[80px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label={taglineAria}>
           <!-- Phrase 1: 我为 媒介环境 而设计。 -->
           <span class="hero-zh-phrase">
             <span class="hero-char-word"><span class="hero-char" aria-hidden="true">我</span><span class="hero-char" aria-hidden="true">为</span></span>
