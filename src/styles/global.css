@@ -72,6 +72,29 @@ body {
   background: var(--page-bg);
 }
 
+/* ===== Mobile Navbar (fixed, independent of stage scale) ===== */
+.mobile-navbar-host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 60;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mobile-navbar-host > * {
+  pointer-events: auto;
+}
+
+.mobile-navbar-stage {
+  position: relative;
+  left: 50%;
+  width: var(--mobile-width);
+  transform: translateX(-50%) scale(var(--mobile-scale));
+  transform-origin: top center;
+}
+
 /* ===== Mobile Scaling System ===== */
 .mobile-layout {
   display: none;

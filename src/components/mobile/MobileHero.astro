@@ -1,52 +1,70 @@
 ---
-// MobileHero.astro — Mobile hero section
+// MobileHero.astro — Mobile hero section (Figma)
 ---
 
-<div class="w-full max-w-[900px] px-[32px] py-[24px] flex flex-col gap-[32px]">
-  <!-- Name line -->
-  <div class="inline-flex items-end gap-[8px]">
-    <div class="text-black/40 text-[54px] font-geist font-medium leading-[1.3]">Hey, I&rsquo;m</div>
-    <div class="w-[72px] h-[72px] relative overflow-hidden shrink-0">
-      <img
-        src="/assets/avatar.png"
-        alt="Avatar"
-        class="w-[72px] h-[72px] object-cover rotate-[13deg] rounded-full"
-      />
+<div class="w-full">
+  <!-- Name + tagline -->
+  <div class="px-[32px] py-[24px] flex flex-col items-start">
+    <div class="inline-flex items-center gap-[8px]">
+      <div class="text-black/40 text-[54px] font-geist font-medium">Hey, I&rsquo;m</div>
+      <img src="/assets/avatar3.png" alt="Avatar" class="w-[72px] h-[72px]" />
+      <div class="text-black text-[54px] font-geist font-medium">Zack.</div>
     </div>
-    <div class="text-black text-[54px] font-geist font-medium leading-[1.3]">Zack.</div>
-  </div>
-
-  <!-- Tagline -->
-  <div class="text-[54px] font-geist font-medium leading-[1.3]">
-    <span class="text-black/40">I design for </span>
-    <span class="text-black/90">Media Ecology. </span>
-    <span class="text-black/40">Grounding </span>
-    <span class="text-black/90">Philosophy. </span>
-    <span class="text-black/40">Crafting </span>
-    <span class="text-black/90">Systems.</span>
-  </div>
-
-  <!-- Info cards row -->
-  <div class="flex gap-[16px]">
-    <div class="flex-1 p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] border border-[rgba(0,0,0,0.05)] flex flex-col gap-[16px]">
-      <div class="text-black/50 text-[28px] font-geist">Current</div>
-      <div class="text-black/90 text-[28px] font-geist leading-[1.3]">Tencent &mdash; WeChat Design Team</div>
-    </div>
-    <div class="flex-1 p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] border border-[rgba(0,0,0,0.05)] flex flex-col gap-[16px]">
-      <div class="text-black/50 text-[28px] font-geist">Education</div>
-      <div class="text-black/90 text-[28px] font-geist leading-[1.3]">M.Sc. in Interaction Design, PolyU</div>
+    <div class="w-full text-[54px] font-geist font-medium">
+      <span class="text-black/40">I design for </span>
+      <span class="text-black/90">Media Ecology. </span>
+      <span class="text-black/40">Grounding </span>
+      <span class="text-black/90">Philosophy. </span>
+      <span class="text-black/40">Crafting </span>
+      <span class="text-black/90">Systems.</span>
     </div>
   </div>
 
-  <!-- Contact card -->
-  <div class="p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] border border-[rgba(0,0,0,0.05)] flex flex-col gap-[32px]">
-    <div class="flex items-center gap-[32px]">
-      <div class="text-black/50 text-[28px] font-geist w-[180px] shrink-0">Phone (WeChat)</div>
-      <div class="text-black/90 text-[28px] font-geist">+86 19120330185</div>
+  <!-- Info cards + Contact -->
+  <div class="px-[32px] py-[24px] flex flex-col items-start gap-[16px]">
+    <!-- Info cards row -->
+    <div class="self-stretch flex items-center gap-[16px]">
+      <!-- Current card -->
+      <div class="flex-1 p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] outline outline-1 outline-[rgba(0,0,0,0.05)] flex flex-col items-start gap-[32px]" style="outline-offset: -1px;">
+        <div class="self-stretch flex justify-between items-center">
+          <div class="text-black/50 text-[28px] font-geist font-normal">Current</div>
+          <img src="/assets/mobile-building.svg" alt="" class="w-[42px] h-[36px]" />
+        </div>
+        <div class="self-stretch text-black/90 text-[28px] font-geist font-normal">Tencent &mdash; WeChat Design Team</div>
+      </div>
+
+      <!-- Education card -->
+      <div class="flex-1 p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] outline outline-1 outline-[rgba(0,0,0,0.05)] flex flex-col items-start gap-[32px]" style="outline-offset: -1px;">
+        <div class="self-stretch flex justify-between items-center">
+          <div class="text-black/50 text-[28px] font-geist font-normal">Education</div>
+          <img src="/assets/mobile-education.svg" alt="" class="w-[40px] h-[36px]" />
+        </div>
+        <div class="self-stretch text-black/90 text-[28px] font-geist font-normal">M.Sc. in Interaction Design, PolyU</div>
+      </div>
     </div>
-    <div class="flex items-center gap-[32px]">
-      <div class="text-black/50 text-[28px] font-geist w-[180px] shrink-0">Email</div>
-      <div class="text-black/90 text-[28px] font-geist">2745940185@qq.com</div>
+
+    <!-- Contact card -->
+    <div class="self-stretch p-[32px] bg-[rgba(0,0,0,0.02)] rounded-[32px] outline outline-1 outline-[rgba(0,0,0,0.05)] flex flex-col items-start gap-[32px]" style="outline-offset: -1px;">
+      <!-- Phone row -->
+      <div class="self-stretch flex justify-between items-center">
+        <div class="flex items-center gap-[16px]">
+          <img src="/assets/mobile-phone.svg" alt="" class="w-[34px] h-[34px]" />
+          <div class="text-black/50 text-[28px] font-geist font-normal">Phone (WeChat)</div>
+        </div>
+        <div class="text-black/90 text-[28px] font-geist font-normal">+86 19120330185</div>
+      </div>
+
+      <!-- Divider -->
+      <img src="/assets/mobile-divider.svg" alt="" class="self-stretch w-full h-[1px]" />
+
+      <!-- Email row -->
+      <div class="self-stretch flex justify-between items-center">
+        <div class="flex items-center gap-[16px]">
+          <img src="/assets/mobile-email.svg" alt="" class="w-[37px] h-[26px]" />
+          <div class="text-black/50 text-[28px] font-geist font-normal">Email</div>
+        </div>
+        <div class="text-black/90 text-[28px] font-geist font-normal">2745940185@qq.com</div>
+      </div>
     </div>
   </div>
 </div>

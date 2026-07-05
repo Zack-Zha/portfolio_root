@@ -3,7 +3,8 @@
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import MobilePlaceholder from './MobilePlaceholder.astro';
-import MobileHome from '../mobile/MobileHome.astro';
+import MobileNavbar from '../mobile/MobileNavbar.astro';
+import MobileHomeContent from '../mobile/MobileHomeContent.astro';
 import '../../styles/global.css';
 import '../../styles/animations.css';
 
@@ -42,9 +43,14 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
 
     <!-- Mobile layout -->
     <div id="mobile-layout" class="mobile-layout">
+      <div class="mobile-navbar-host">
+        <div class="mobile-navbar-stage">
+          {isHome && <MobileNavbar />}
+        </div>
+      </div>
       <div id="mobile-scale-host" class="mobile-scale-host">
         <div id="mobile-stage" class="mobile-stage">
-          {isHome ? <MobileHome /> : <MobilePlaceholder />}
+          {isHome ? <MobileHomeContent /> : <MobilePlaceholder />}
         </div>
       </div>
     </div>
@@ -73,7 +79,7 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
       function syncMobileScale() {
         const host = document.getElementById('mobile-scale-host');
         const stage = document.getElementById('mobile-stage');
-        if (!host || !stage) return;
+        const navbarHost = document.querySelector('.mobile-navbar-host');
 
         const width = window.innerWidth;
         if (width > MOBILE_BREAKPOINT) return;
@@ -82,7 +88,15 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
         document.documentElement.style.setProperty('--mobile-scale', String(scale));
 
         requestAnimationFrame(() => {
-          host.style.height = (stage.scrollHeight * scale) + 'px';
+          if (host && stage) {
+            host.style.height = (stage.scrollHeight * scale) + 'px';
+          }
+          if (navbarHost) {
+            const navbarStage = navbarHost.querySelector('.mobile-navbar-stage');
+            if (navbarStage) {
+              navbarHost.style.height = (navbarStage.scrollHeight * scale) + 'px';
+            }
+          }
         });
       }
 
@@ -103,6 +117,11 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
         const mobileStage = document.getElementById('mobile-stage');
         if (mobileStage) {
           new ResizeObserver(syncMobileScale).observe(mobileStage);
+        }
+
+        const navbarStage = document.querySelector('.mobile-navbar-stage');
+        if (navbarStage) {
+          new ResizeObserver(syncMobileScale).observe(navbarStage);
         }
       }
     </script>

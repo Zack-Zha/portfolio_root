@@ -1,0 +1,16 @@
+---
+// MobileHomeContent.astro — Mobile homepage content (navbar rendered separately for fixed positioning)
+import MobileHero from './MobileHero.astro';
+import MobileProductSection from './MobileProductSection.astro';
+import MobileSystemSection from './MobileSystemSection.astro';
+import MobileExplorationSection from './MobileExplorationSection.astro';
+import MobileFooter from './MobileFooter.astro';
+---
+
+<main class="flex flex-col pt-[144px]">
+  <MobileHero />
+  <MobileProductSection />
+  <MobileSystemSection />
+  <MobileExplorationSection />
+  <MobileFooter />
+</main>
