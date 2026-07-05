@@ -29,13 +29,13 @@ export const t = {
     phoneLabel: { en: 'Phone (WeChat)', zh: '电话（微信）' } as const,
     emailLabel: { en: 'E-mail', zh: '邮箱' } as const,
     educationLabel: { en: 'Education', zh: '教育经历' } as const,
-    education: { en: 'M.Sc. in Interaction Design, PolyU', zh: '香港理工大学 交互设计硕士' } as const,
+    education: { en: 'MDes (Intelligent Systems Design), PolyU', zh: '香港理工大学 交互设计硕士' } as const,
     desktopLine1: {
       en: 'Current: Tencent — WeChat Design Team',
       zh: '就职：腾讯微信设计团队 - 体验设计师',
     } as const,
     desktopLine2: {
-      en: 'Education: M.Sc. in Interaction Design, PolyU',
+      en: 'Education: MDes (Intelligent Systems Design), PolyU',
       zh: '学历：香港理工大学 - 设计硕士',
     } as const,
   },
