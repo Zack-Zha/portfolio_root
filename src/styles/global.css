@@ -23,7 +23,10 @@
 :root {
   --desktop-scale: 1;
   --desktop-width: 1920px;
+  --mobile-scale: 1;
+  --mobile-width: 768px;
   --page-bg: #EDEDED;
+  --mobile-bg: #F0F0F0;
 }
 
 html {
@@ -69,10 +72,28 @@ body {
   background: var(--page-bg);
 }
 
+/* ===== Mobile Scaling System ===== */
 .mobile-layout {
   display: none;
   min-height: 100vh;
-  background: var(--page-bg);
+  background: var(--mobile-bg);
+}
+
+.mobile-scale-host {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--mobile-bg);
+}
+
+.mobile-stage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--mobile-width);
+  transform: translateX(-50%) scale(var(--mobile-scale));
+  transform-origin: top center;
+  background: var(--mobile-bg);
 }
 
 @media (max-width: 768px) {

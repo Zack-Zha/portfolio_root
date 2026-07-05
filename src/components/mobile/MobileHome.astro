@@ -1,5 +1,5 @@
 ---
-// MobileHome.astro — Mobile homepage layout
+// MobileHome.astro — Mobile homepage (fixed 768px canvas, scaled by parent)
 import MobileNavbar from './MobileNavbar.astro';
 import MobileHero from './MobileHero.astro';
 import MobileProductSection from './MobileProductSection.astro';
@@ -8,7 +8,7 @@ import MobileExplorationSection from './MobileExplorationSection.astro';
 import MobileFooter from './MobileFooter.astro';
 ---
 
-<div class="mobile-home mx-auto w-full max-w-[768px] overflow-x-hidden bg-[#F0F0F0] font-geist text-black">
+<div class="mobile-home w-[768px] overflow-hidden bg-[#F0F0F0] font-geist text-black">
   <MobileNavbar />
   <main class="flex flex-col">
     <MobileHero />

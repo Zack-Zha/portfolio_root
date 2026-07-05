@@ -1,5 +1,5 @@
 ---
-// SiteLayout.astro — Global layout shell with desktop scaling
+// SiteLayout.astro — Global layout shell with desktop and mobile scaling
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import MobilePlaceholder from './MobilePlaceholder.astro';
@@ -42,11 +42,16 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
 
     <!-- Mobile layout -->
     <div id="mobile-layout" class="mobile-layout">
-      {isHome ? <MobileHome /> : <MobilePlaceholder />}
+      <div id="mobile-scale-host" class="mobile-scale-host">
+        <div id="mobile-stage" class="mobile-stage">
+          {isHome ? <MobileHome /> : <MobilePlaceholder />}
+        </div>
+      </div>
     </div>
 
     <script>
-      const DESIGN_WIDTH = 1920;
+      const DESKTOP_DESIGN_WIDTH = 1920;
+      const MOBILE_DESIGN_WIDTH = 768;
       const MOBILE_BREAKPOINT = 768;
 
       function syncDesktopScale() {
@@ -57,7 +62,7 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
         const width = window.innerWidth;
         if (width <= MOBILE_BREAKPOINT) return;
 
-        const scale = Math.min(1, width / DESIGN_WIDTH);
+        const scale = Math.min(1, width / DESKTOP_DESIGN_WIDTH);
         document.documentElement.style.setProperty('--desktop-scale', String(scale));
 
         requestAnimationFrame(() => {
@@ -65,13 +70,39 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
         });
       }
 
+      function syncMobileScale() {
+        const host = document.getElementById('mobile-scale-host');
+        const stage = document.getElementById('mobile-stage');
+        if (!host || !stage) return;
+
+        const width = window.innerWidth;
+        if (width > MOBILE_BREAKPOINT) return;
+
+        const scale = Math.min(1, width / MOBILE_DESIGN_WIDTH);
+        document.documentElement.style.setProperty('--mobile-scale', String(scale));
+
+        requestAnimationFrame(() => {
+          host.style.height = (stage.scrollHeight * scale) + 'px';
+        });
+      }
+
       syncDesktopScale();
-      window.addEventListener('resize', syncDesktopScale);
+      syncMobileScale();
+
+      window.addEventListener('resize', () => {
+        syncDesktopScale();
+        syncMobileScale();
+      });
 
       if ('ResizeObserver' in window) {
-        const stage = document.getElementById('desktop-stage');
-        if (stage) {
-          new ResizeObserver(syncDesktopScale).observe(stage);
+        const desktopStage = document.getElementById('desktop-stage');
+        if (desktopStage) {
+          new ResizeObserver(syncDesktopScale).observe(desktopStage);
+        }
+
+        const mobileStage = document.getElementById('mobile-stage');
+        if (mobileStage) {
+          new ResizeObserver(syncMobileScale).observe(mobileStage);
         }
       }
     </script>
