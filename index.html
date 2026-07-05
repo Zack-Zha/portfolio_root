@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="cn" class="scroll-smooth font-sans overflow-x-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        geist: ['Geist', 'sans-serif'],
+                        sfpro: ['"SF Pro"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @property --h1 { syntax: '<angle>'; inherits: false; initial-value: 48deg; }
+        @property --h2 { syntax: '<angle>'; inherits: false; initial-value: 330deg; }
+        @property --h3 { syntax: '<angle>'; inherits: false; initial-value: 284deg; }
+        @property --h4 { syntax: '<angle>'; inherits: false; initial-value: 212deg; }
+        @property --h5 { syntax: '<angle>'; inherits: false; initial-value: 197deg; }
+        @property --h6 { syntax: '<angle>'; inherits: false; initial-value: 135deg; }
+        /*卡片流光动效*/
+        .mesh-gradient {
+            background:
+                radial-gradient(110px 110px at 12% 12%, rgba(255, 214, 10, 0.8), rgba(255, 214, 10, 0) 60%),
+                radial-gradient(130px 130px at 85% 15%, rgba(255, 99, 164, 0.8), rgba(255, 99, 164, 0) 60%),
+                radial-gradient(120px 120px at 74% 66%, rgba(191, 90, 242, 0.8), rgba(191, 90, 242, 0) 60%),
+                radial-gradient(130px 130px at 48% 98%, rgba(10, 132, 255, 0.8), rgba(10, 132, 255, 0) 60%),
+                radial-gradient(110px 110px at 20% 78%, rgba(100, 210, 255, 0.8), rgba(100, 210, 255, 0) 60%),
+                radial-gradient(120px 120px at 4% 40%, rgba(48, 209, 88, 0.8), rgba(48, 209, 88, 0) 60%);
+            background-repeat: no-repeat;
+            background-size: 300% 300%;
+            background-position: 12% 12%, 85% 15%, 74% 66%, 48% 98%, 20% 78%, 4% 40%;
+        }
+
+        @keyframes gradientMesh {
+            0% {
+                background-position: 12% 12%, 85% 15%, 74% 66%, 48% 98%, 20% 78%, 4% 40%;
+            }
+
+            50% {
+                background-position: 30% 32%, 70% 28%, 60% 60%, 40% 80%, 26% 64%, 12% 52%;
+            }
+
+            100% {
+                background-position: 12% 12%, 85% 15%, 74% 66%, 48% 98%, 20% 78%, 4% 40%;
+            }
+        }
+
+
+        .hero-ambient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 820px;
+            padding-left: calc(max((100vw - 1920px) / 2, 0px));
+            padding-right: calc(max((100vw - 1920px) / 2, 0px));
+            --h1: 48deg;
+            --h2: 330deg;
+            --h3: 284deg;
+            --h4: 212deg;
+            --h5: 197deg;
+            --h6: 135deg;
+            background:
+                radial-gradient(240px 240px at 10% 14%, oklch(0.82 0.14 var(--h1) / 0.8), oklch(0.82 0.14 var(--h1) / 0) 60%),
+                radial-gradient(300px 300px at 82% 16%, oklch(0.82 0.14 var(--h2) / 0.8), oklch(0.82 0.14 var(--h2) / 0) 60%),
+                radial-gradient(260px 260px at 72% 60%, oklch(0.82 0.14 var(--h3) / 0.8), oklch(0.82 0.14 var(--h3) / 0) 60%),
+                radial-gradient(300px 300px at 50% 88%, oklch(0.82 0.14 var(--h4) / 0.8), oklch(0.82 0.14 var(--h4) / 0) 60%),
+                radial-gradient(260px 260px at 22% 72%, oklch(0.82 0.14 var(--h5) / 0.8), oklch(0.82 0.14 var(--h5) / 0) 60%),
+                radial-gradient(260px 260px at 6% 38%, oklch(0.82 0.14 var(--h6) / 0.8), oklch(0.82 0.14 var(--h6) / 0) 60%);
+            background-repeat: no-repeat;
+            background-size: 320% 320%;
+            background-origin: content-box;
+            background-clip: padding-box;
+            filter: blur(120px);
+            opacity: 0.6;
+            animation: heroMesh 36000ms ease-in-out infinite, hueSwing1 8000ms linear 0ms infinite, hueSwing2 8000ms linear 200ms infinite, hueSwing3 8000ms linear 400ms infinite, hueSwing4 8000ms linear 600ms infinite, hueSwing5 8000ms linear 800ms infinite, hueSwing6 8000ms linear 1000ms infinite;
+            will-change: background-position, transform;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.15) 85%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.85) 20%, rgba(0,0,0,0.6) 55%, rgba(0,0,0,0.15) 85%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes heroMesh {
+            0% {
+                background-position: 10% 14%, 82% 16%, 72% 60%, 50% 88%, 22% 72%, 6% 38%;
+                transform: translate3d(0, 0, 0);
+            }
+            25% {
+                background-position: 12% 16%, 80% 18%, 70% 62%, 48% 86%, 24% 70%, 8% 40%;
+                transform: translate3d(3px, -3px, 0);
+            }
+            50% {
+                background-position: 10% 14%, 82% 16%, 72% 60%, 50% 88%, 22% 72%, 6% 38%;
+                transform: translate3d(0, 0, 0);
+            }
+            75% {
+                background-position: 8% 12%, 84% 14%, 74% 58%, 52% 90%, 20% 74%, 4% 36%;
+                transform: translate3d(-3px, 3px, 0);
+            }
+            100% {
+                background-position: 10% 14%, 82% 16%, 72% 60%, 50% 88%, 22% 72%, 6% 38%;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        @keyframes hueSwing1 {
+            0% { --h1: 48deg; }
+            50% { --h1: 138deg; }
+            100% { --h1: 48deg; }
+        }
+        @keyframes hueSwing2 {
+            0% { --h2: 330deg; }
+            50% { --h2: 420deg; }
+            100% { --h2: 330deg; }
+        }
+        @keyframes hueSwing3 {
+            0% { --h3: 284deg; }
+            50% { --h3: 374deg; }
+            100% { --h3: 284deg; }
+        }
+        @keyframes hueSwing4 {
+            0% { --h4: 212deg; }
+            50% { --h4: 302deg; }
+            100% { --h4: 212deg; }
+        }
+        @keyframes hueSwing5 {
+            0% { --h5: 197deg; }
+            50% { --h5: 287deg; }
+            100% { --h5: 197deg; }
+        }
+        @keyframes hueSwing6 {
+            0% { --h6: 135deg; }
+            50% { --h6: 225deg; }
+            100% { --h6: 135deg; }
+        }
+        /*气泡动效*/
+        @keyframes bubbleA {
+            0% {
+                transform: translate(-12px, -10px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(8px, -14px) rotate(8deg);
+            }
+
+            50% {
+                transform: translate(16px, 6px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-6px, 10px) rotate(-6deg);
+            }
+
+            100% {
+                transform: translate(-12px, -10px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleB {
+            0% {
+                transform: translate(22px, -8px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(10px, 12px) rotate(-6deg);
+            }
+
+            50% {
+                transform: translate(-18px, 6px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-8px, -12px) rotate(6deg);
+            }
+
+            100% {
+                transform: translate(22px, -8px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleC {
+            0% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(14px, -6px) rotate(10deg);
+            }
+
+            50% {
+                transform: translate(8px, 12px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-10px, 6px) rotate(-8deg);
+            }
+
+            100% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleP1 {
+            0% {
+                transform: translate(-10px, -8px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(12px, -6px) rotate(6deg);
+            }
+
+            50% {
+                transform: translate(18px, 8px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-8px, 10px) rotate(-5deg);
+            }
+
+            100% {
+                transform: translate(-10px, -8px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleP2 {
+            0% {
+                transform: translate(16px, -12px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(6px, 10px) rotate(-6deg);
+            }
+
+            50% {
+                transform: translate(-16px, 4px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-6px, -10px) rotate(6deg);
+            }
+
+            100% {
+                transform: translate(16px, -12px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleP3 {
+            0% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(12px, -4px) rotate(8deg);
+            }
+
+            50% {
+                transform: translate(6px, 12px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-12px, 6px) rotate(-6deg);
+            }
+
+            100% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleS1 {
+            0% {
+                transform: translate(-14px, -6px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(10px, -10px) rotate(7deg);
+            }
+
+            50% {
+                transform: translate(16px, 10px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-8px, 12px) rotate(-5deg);
+            }
+
+            100% {
+                transform: translate(-14px, -6px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleS2 {
+            0% {
+                transform: translate(18px, -8px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(6px, 12px) rotate(-6deg);
+            }
+
+            50% {
+                transform: translate(-20px, 6px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-6px, -12px) rotate(6deg);
+            }
+
+            100% {
+                transform: translate(18px, -8px) rotate(0deg);
+            }
+        }
+
+        @keyframes bubbleS3 {
+            0% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(10px, -6px) rotate(9deg);
+            }
+
+            50% {
+                transform: translate(8px, 14px) rotate(0deg);
+            }
+
+            75% {
+                transform: translate(-14px, 8px) rotate(-7deg);
+            }
+
+            100% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+        }
+
+        @keyframes glowMove {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            25% {
+                background-position: 50% 0%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            75% {
+                background-position: 50% 100%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="min-h-screen bg-[#EDEDED] font-geist text-black overflow-x-hidden relative">
+        <div class="hero-ambient"></div>
+        <div class="min-w-[1840px] max-w-[1920px] mx-auto flex flex-col gap-[120px] shrink-0 relative z-10">
+            <div class="relative flex flex-col">
+                <!-- 使用 fixed 定位确保导航栏始终固定在窗口顶部，不受滚动影响 -->
+                <header class="fixed top-0 left-0 right-0 z-50 bg-[rgba(237,237,237,0.2)] backdrop-blur-[24px]">
+                    <div class="min-w-[1840px] max-w-[1920px] w-full mx-auto flex items-center justify-between px-20 py-6">
+                        <div id="homeTitle"
+                            class="text-xl font-medium leading-[1.3em] cursor-pointer transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/50">
+                            Chengke Zha</div>
+                        <nav class="flex items-center gap-16 text-black/50 text-xl font-medium leading-[1.3em]">
+                            <a href="#work"
+                                class="transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/90">Work</a>
+                            <a href="gallery.html" target="_blank"
+                                class="transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/90">Gallery</a>
+                            <a href="about.html" target="_blank"
+                                class="transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:text-black/90">About</a>
+                        </nav>
+                    </div>
+                </header>
+                <div class="relative z-[1] flex justify-between items-end gap-[316px] px-[80px] mt-[174px] flex-nowrap">
+                    <div class="flex flex-col gap-0 grow">
+                        <div id="introHover" class="w-[640px] flex items-end gap-[16px] group">
+                            <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Hey,
+                                I’m</div>
+                            <div class="w-[96px] h-[96px] shrink-0 flex items-center justify-center relative">
+                                <img src="assets/avatar2.png" alt="Avatar"
+                                    class="absolute inset-0 w-full h-full object-cover rotate-0 scale-0 transition-transform duration-[200ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:duration-[800ms] group-hover:[transition-timing-function:cubic-bezier(.34,1.56,.64,1)] [will-change:transform] group-hover:scale-100">
+                                <img src="assets/avatar.png" alt="Avatar"
+                                    class="absolute inset-0 w-full h-full object-cover rotate-[15deg] scale-100 transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:duration-[200ms] group-hover:[transition-timing-function:cubic-bezier(.4,0,.2,1)] [will-change:transform] group-hover:scale-0 group-hover:rotate-0">
+                            </div>
+                            <div id="zackTitle"
+                                class="group relative text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]">
+                                <span class="relative z-0">Zack.</span>
+                                <span aria-hidden
+                                    class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position]
+                                             bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)]
+                                             [background-size:180%_180%] [background-position:0%_50%]
+                                             opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)]
+                                             group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">Zack.</span>
+                            </div>
+                        </div>
+                        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">
+                            I design for <span id="mediaEcologyGroup" class="relative inline-block text-black/90 group">
+                                <span class="relative inline-block align-middle">
+                                    <span class="relative z-0">Media Ecology.</span>
+                                    <span aria-hidden
+                                        class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">Media
+                                        Ecology.</span>
+                                </span>
+                                <span class="pointer-events-none absolute -inset-[32px] z-10">
+                                    <img src="assets/mc.png" alt=""
+                                        class="absolute top-[-28px] left-[-36px] w-[52px] h-[52px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleA_14000ms_ease-in-out_infinite] [animation-delay:0ms]">
+                                    <img src="assets/mon.png" alt=""
+                                        class="absolute top-[-36px] right-[-44px] w-[44px] h-[44px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleB_16000ms_ease-in-out_infinite] [animation-delay:600ms]">
+                                    <img src="assets/post.png" alt=""
+                                        class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]">
+                                </span>
+                            </span> Grounding <span class="relative inline-block text-black/90 group align-middle">
+                                <span class="relative z-0">Philosophy.</span>
+                                <span aria-hidden
+                                    class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position]
+                                             bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)]
+                                             [background-size:180%_180%] [background-position:0%_50%]
+                                             opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)]
+                                             group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">Philosophy.</span>
+                                <span class="pointer-events-none absolute -inset-[28px] z-10">
+                                    <img src="assets/nc.png" alt=""
+                                        class="absolute top-[-22px] left-[-30px] w-[48px] h-[48px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP1_15000ms_ease-in-out_infinite] [animation-delay:0ms]">
+                                    <img src="assets/fc.png" alt=""
+                                        class="absolute bottom-[-26px] right-[-36px] w-[40px] h-[40px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP2_17000ms_ease-in-out_infinite] [animation-delay:800ms]">
+                                    <img src="assets/alex.png" alt=""
+                                        class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]">
+                                </span>
+                            </span> Crafting <span class="relative inline-block text-black/90 group align-middle">
+                                <span class="relative z-0">Systems.</span>
+                                <span aria-hidden
+                                    class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position]
+                                             bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)]
+                                             [background-size:180%_180%] [background-position:0%_50%]
+                                             opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)]
+                                             group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]">Systems.</span>
+                                <span class="pointer-events-none absolute -inset-[26px] z-10">
+                                    <img src="assets/lm.png" alt="" onerror="this.style.display='none'"
+                                        class="absolute top-[-18px] left-[-28px] w-[46px] h-[46px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS1_16000ms_ease-in-out_infinite] [animation-delay:0ms]">
+                                    <img src="assets/vc.png" alt="" onerror="this.style.display='none'"
+                                        class="absolute top-[-12px] right-[-34px] w-[38px] h-[38px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS2_18000ms_ease-in-out_infinite] [animation-delay:700ms]">
+                                    <img src="assets/nw.png" alt="" onerror="this.style.display='none'"
+                                        class="absolute bottom-[-24px] left-[62%] w-[32px] h-[32px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleS3_20000ms_ease-in-out_infinite] [animation-delay:1300ms]">
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-[4px] flex-nowrap">
+                        <a href="mailto:chengkezha@gmail.com" target="_blank"
+                            class="w-[120px] h-[120px] rounded-[60px] bg-white/50 border border-white flex items-center justify-center shrink-0 cursor-pointer transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:bg-white/10">
+                            <svg height="43" viewBox="0 0 24 24" fill="none" class="opacity-40">
+                                <rect x="4" y="6" width="16" height="12" rx="2" ry="2" stroke="black" stroke-width="1.5"
+                                    fill="none"></rect>
+                                <path d="M4 7l8 6 8-6" stroke="black" stroke-width="1.5" fill="none"></path>
+                            </svg>
+                        </a>
+                        <div id="resumeBtn"
+                            class="relative group w-[120px] h-[120px] rounded-[60px] bg-white/50 border border-white flex items-center justify-center shrink-0 hover:cursor-[none] transition-colors duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] hover:bg-white/20">
+                            <svg height="43" viewBox="0 0 24 24" fill="none" class="opacity-40">
+                                <rect x="5" y="3" width="14" height="18" rx="2" stroke="black" stroke-width="1.5">
+                                </rect>
+                                <line x1="8" y1="8" x2="16" y2="8" stroke="black" stroke-width="1.5"></line>
+                                <line x1="8" y1="12" x2="16" y2="12" stroke="black" stroke-width="1.5"></line>
+                                <line x1="8" y1="16" x2="13" y2="16" stroke="black" stroke-width="1.5"></line>
+                            </svg>
+                            <div id="resumeTooltip"
+                                class="rounded-[100px] pointer-events-none absolute top-0 left-0 bg-[rgba(0,0,0,0.2)] backdrop-blur-[4px] px-[12px] py-[12px] text-white text-[16px] font-['Geist'] font-normal whitespace-nowrap opacity-0 transition-opacity duration-[400ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100">
+                                Unavailable
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative z-[1] self-stretch px-20 inline-flex justify-between items-center mt-[96px]">
+                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
+                        <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
+                            Current: Tencent - WeChat Design Team</div>
+                        <div class="self-stretch justify-start">
+                            <span class="text-black/90 text-xl font-normal font-['Geist']">Role: Product Experience
+                                Designer</span><span class="text-black/40 text-xl font-normal font-['Geist']">
+                                (Intern)</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
+                        <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">Phone
+                            (WeChat): +86 19120330185</div>
+                        <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">E-mail:
+                            ChengkeZha@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const z = document.getElementById('zackTitle');
+                const g = document.getElementById('introHover');
+                if (z && g) {
+                    let swingAnim = null;
+                    let introAnim = null;
+                    let returnAnim = null;
+                    const startSwing = () => {
+                        if (returnAnim) { returnAnim.cancel(); returnAnim = null; }
+                        if (swingAnim) { swingAnim.cancel(); swingAnim = null; }
+                        if (introAnim) { introAnim.cancel(); introAnim = null; }
+                        // 先从当前角度平滑回到 0deg（若不是 0）
+                        const cur = getAngle();
+                        z.style.transform = `rotate(${cur}deg)`;
+                        const normalize = cur !== 0 ? z.animate(
+                            [{ transform: `rotate(${cur}deg)` }, { transform: 'rotate(0deg)' }],
+                            { duration: 120, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+                        ) : null;
+                        const afterNormalize = () => {
+                            z.style.transform = 'rotate(0deg)';
+                            // 入口轻微上升至 5deg
+                            introAnim = z.animate(
+                                [{ transform: 'rotate(0deg)' }, { transform: 'rotate(5deg)' }],
+                                { duration: 400, easing: 'cubic-bezier(.2,1,.3,1)', fill: 'forwards' }
+                            );
+                            introAnim.onfinish = () => {
+                                z.style.transform = 'rotate(5deg)';
+                                introAnim = null;
+                                // 进入主摇摆
+                                swingAnim = z.animate(
+                                    [{ transform: 'rotate(5deg)' }, { transform: 'rotate(-5deg)' }],
+                                    { duration: 1200, iterations: Infinity, direction: 'alternate', easing: 'cubic-bezier(.4,0,.2,1)' }
+                                );
+                            };
+                        };
+                        if (normalize) {
+                            normalize.onfinish = afterNormalize;
+                        } else {
+                            afterNormalize();
+                        }
+                    };
+                    const getAngle = () => {
+                        const tf = getComputedStyle(z).transform;
+                        if (!tf || tf === 'none') return 0;
+                        const m = tf.match(/matrix\(([-\d.,\s]+)\)/);
+                        if (!m) return 0;
+                        const nums = m[1].split(',').map(s => parseFloat(s.trim()));
+                        const a = nums[0], b = nums[1];
+                        return Math.atan2(b, a) * (180 / Math.PI);
+                    };
+                    g.addEventListener('mouseenter', () => {
+                        startSwing();
+                    });
+                    g.addEventListener('mouseleave', () => {
+                        // 从当前角度在 400ms 内平滑回到 0deg
+                        const angle = getAngle();
+                        if (introAnim) { introAnim.cancel(); introAnim = null; }
+                        if (swingAnim) { swingAnim.cancel(); swingAnim = null; }
+                        z.style.transform = `rotate(${angle}deg)`;
+                        returnAnim = z.animate(
+                            [{ transform: `rotate(${angle}deg)` }, { transform: 'rotate(0deg)' }],
+                            { duration: 400, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }
+                        );
+                        returnAnim.onfinish = () => {
+                            z.style.transform = 'rotate(0deg)';
+                            returnAnim = null;
+                        };
+                    });
+                }
+                // Media Ecology blur handled via CSS transition on filter
+            </script>
+
+            <div id="work" class="flex flex-col gap-[56px] scroll-mt-[120px]">
+                <div class="flex items-center gap-[10px] px-[80px]">
+                    <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Product.</div>
+                </div>
+                <div class="self-stretch px-20 inline-flex justify-between items-center">
+                    <!--项目1-->
+                    <a href="wechat_store.html" target="_blank"
+                        class="flex w-[532px] h-[746px] flex-col justify-start items-center relative group hover:cursor-pointer">
+                        <!--文字-->
+                        <div
+                            class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
+                            <span class="relative inline-block leading-[1.1]">
+                                <span class="block relative z-20">WeChat<br />Store</span>
+                                <span
+                                    class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100 animate-[gradientMesh_6000ms_linear_infinite] [will-change:background-position] z-10"></span>
+                            </span>
+                        </div>
+                        <!--手机-->
+                        <img src="assets/product-1.png" alt="WeChat Store"
+                            class="w-[338px] h-[690px] transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]">
+                        <!--光影-->
+                        <img src="assets/glass.png"
+                            class="absolute z-10 mt-[325px] filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]">
+                        <!--模糊-->
+                        <div class="absolute mt-[325px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="532" height="421" viewBox="0 0 532 421"
+                                fill="none">
+                                <foreignObject x="-12" y="-12" width="556" height="444.998">
+                                    <div xmlns="http://www.w3.org/1999/xhtml"
+                                        style="backdrop-filter:blur(6px);clip-path:url(#bgblur_0_1_45_clip_path);height:100%;width:100%">
+                                    </div>
+                                </foreignObject>
+                                <path data-figma-bg-blur-radius="12"
+                                    d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z"
+                                    fill="white" fill-opacity="0.01" />
+                                <defs>
+                                    <clipPath id="bgblur_0_1_45_clip_path" transform="translate(12 12)">
+                                        <path
+                                            d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                    </a>
+                    <!--项目2-->
+                    <a href="byme.html" target="_blank"
+                        class="flex w-[532px] h-[746px] flex-col justify-start items-center relative group hover:cursor-pointer">
+                        <!--文字-->
+                        <div
+                            class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
+                            <span class="relative inline-block leading-[1.1]">
+                                <span class="block relative z-20">Byme<br />Social Audio</span>
+                                <span
+                                    class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100 animate-[gradientMesh_6000ms_linear_infinite] [will-change:background-position] z-10"></span>
+                            </span>
+                        </div>
+                        <!--手机-->
+                        <img src="assets/product-2.png" alt="Byme"
+                            class="w-[338px] h-[690px] transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]">
+                        <!--光影-->
+                        <img src="assets/glass.png"
+                            class="absolute z-10 mt-[325px] filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]">
+                        <!--模糊-->
+                        <div class="absolute mt-[325px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="532" height="421" viewBox="0 0 532 421"
+                                fill="none">
+                                <foreignObject x="-12" y="-12" width="556" height="444.998">
+                                    <div xmlns="http://www.w3.org/1999/xhtml"
+                                        style="backdrop-filter:blur(6px);clip-path:url(#bgblur_0_1_45_clip_path);height:100%;width:100%">
+                                    </div>
+                                </foreignObject>
+                                <path data-figma-bg-blur-radius="12"
+                                    d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z"
+                                    fill="white" fill-opacity="0.01" />
+                                <defs>
+                                    <clipPath id="bgblur_0_1_45_clip_path" transform="translate(12 12)">
+                                        <path
+                                            d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                    </a>
+                    <!--项目3-->
+                    <a href="Podcast.html" target="_blank"
+                        class="flex w-[532px] h-[746px] flex-col justify-start items-center relative group hover:cursor-pointer">
+                        <!--文字-->
+                        <div
+                            class="absolute z-20 left-[48px] bottom-[48px] text-white/75 text-7xl font-medium font-['Geist']">
+                            <span class="relative inline-block leading-[1.1]">
+                                <span class="block relative z-20">AI-Driven<br />Podcast</span>
+                                <span
+                                    class="pointer-events-none absolute -inset-[40px] mesh-gradient blur-[50px] opacity-0 transition-opacity duration-[400ms] ease-in-out group-hover:opacity-100 animate-[gradientMesh_6000ms_linear_infinite] [will-change:background-position] z-10"></span>
+                            </span>
+                        </div>
+                        <!--手机-->
+                        <img src="assets/product-3.png" alt="Byme"
+                            class="w-[338px] h-[690px] transition-transform duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:-translate-y-[12px]">
+                        <!--光影-->
+                        <img src="assets/glass.png"
+                            class="absolute z-10 mt-[325px] filter transition-[filter] duration-[800ms] ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:brightness-[1.1]">
+                        <!--模糊-->
+                        <div class="absolute mt-[325px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="532" height="421" viewBox="0 0 532 421"
+                                fill="none">
+                                <foreignObject x="-12" y="-12" width="556" height="444.998">
+                                    <div xmlns="http://www.w3.org/1999/xhtml"
+                                        style="backdrop-filter:blur(6px);clip-path:url(#bgblur_0_1_45_clip_path);height:100%;width:100%">
+                                    </div>
+                                </foreignObject>
+                                <path data-figma-bg-blur-radius="12"
+                                    d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z"
+                                    fill="white" fill-opacity="0.01" />
+                                <defs>
+                                    <clipPath id="bgblur_0_1_45_clip_path" transform="translate(12 12)">
+                                        <path
+                                            d="M493.6 40C507.041 40 513.762 40 518.896 42.6158C523.412 44.9168 527.083 48.5883 529.384 53.1042C532 58.2381 532 64.9587 532 78.4L532 382.598C532 396.04 532 402.76 529.384 407.894C527.083 412.41 523.412 416.082 518.896 418.383C513.762 420.998 507.041 420.998 493.6 420.998L38.4 420.998C24.9587 420.998 18.2381 420.998 13.1042 418.382C8.58833 416.082 4.9168 412.41 2.61584 407.894C-7.05411e-06 402.76 -5.68371e-06 396.04 -2.94291e-06 382.598L6.69161e-05 40L6.45447e-05 38.4C4.46225e-05 24.9588 3.46614e-05 18.2381 2.61588 13.1042C4.91683 8.58834 8.58837 4.9168 13.1043 2.61583C18.2381 -1.52662e-05 24.9588 -1.52658e-05 38.4001 -1.52649e-05L157.844 -1.52569e-05C167.222 -1.52563e-05 171.911 -1.5256e-05 176.496 0.667305C180.567 1.2599 184.572 2.24374 188.455 3.60514C192.827 5.13821 196.982 7.31082 205.292 11.656L237.208 28.3439C245.518 32.6892 249.673 34.8618 254.045 36.3948C257.928 37.7562 261.933 38.7401 266.004 39.3327C270.589 40 275.278 40 284.656 40L493.6 40Z" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="flex px-[80px] justify-between items-center self-stretch">
+                <div class="w-[1106px] min-[1920px]:w-[1140px] flex flex-col gap-[56px] shrink-0 transition-[width] duration-300">
+                    <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">System.</div>
+                    <div class="flex flex-col gap-[20px] h-[690px]">
+                        <img src="assets/system.png" alt="WeChat Store B-end Design System - WeChat"
+                            class="w-full h-[644px] object-cover rounded-[16px]">
+                        <div class="text-[20px] leading-[1.3em] text-black/40"><span class="text-black">WeChat Store B-end Design System</span> - WeChat
+                        </div>
+                    </div>
+                </div>
+                <div class="w-[532px] flex flex-col gap-[56px] shrink-0">
+                    <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Research.
+                    </div>
+                    <div class="flex flex-col gap-[20px] h-[690px]">
+                        <img src="assets/research.png" alt="SUPER UX Measurement Model - Midea"
+                            class="w-full h-[644px] object-cover rounded-[16px]">
+                        <div class="text-[20px] leading-[1.3em] text-black/40"><span class="text-black">SUPER UX Measurement Model</span> - Midea</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-[56px] px-[80px]">
+                <div class="text-[76px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Exploration.</div>
+                <div class="flex items-center gap-[16px] flex-nowrap">
+                    <div class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
+                        <img src="assets/image-150.png" alt="Lyria Bear - AI Interactive Music Companion"
+                            class="w-full object-cover">
+                        <div class="text-center text-[20px] leading-[1.3em]">Lyria Bear - AI Interactive Music Companion
+                        </div>
+                    </div>
+                    <div class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
+                        <img src="assets/image-151.png" alt="Byme - Branding and Visuals"
+                            class="w-full object-cover">
+                        <div class="text-center text-[20px] leading-[1.3em]">Byme - Branding and Visuals</div>
+                    </div>
+                    <div class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
+                        <img src="assets/image-152.png" alt="Quin - UX Writing on Medium"
+                            class="w-full object-cover">
+                        <div class="text-center text-[20px] leading-[1.3em]">Quin - UX Writing on Medium</div>
+                    </div>
+                    <div class="w-[428px] h-[474px] flex flex-col items-center gap-[20px]">
+                        <img src="assets/ellipse-17.png" alt="Via Negativa - My Personal Podcast"
+                            class="w-full object-cover rounded-full">
+                        <div class="text-center text-[20px] leading-[1.3em]">Via Negativa - My Personal Podcast</div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="w-full">
+                <div class="min-w-[1840px] max-w-[1920px] w-full mx-auto flex items-center justify-between px-20 py-6">
+                    <div class="text-[20px] leading-[1.3em]">Chengke Zha © 2025</div>
+                    <div class="flex items-center gap-[64px]">
+                        <div class="text-[20px] leading-[1.3em]">Ready to build something that shapes us? Let's talk.</div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script>
+        const rb = document.getElementById('resumeBtn');
+        const tt = document.getElementById('resumeTooltip');
+        if (rb && tt) {
+            rb.addEventListener('mousemove', (e) => {
+                const rect = rb.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const tH = tt.offsetHeight;
+                const tW = tt.offsetWidth;
+                let left = x - tW / 2;
+                let top = y - tH / 2;
+                tt.style.left = left + 'px';
+                tt.style.top = top + 'px';
+            });
+        }
+        const ht = document.getElementById('homeTitle');
+        if (ht) {
+            ht.addEventListener('click', () => {
+                const path = window.location.pathname.replace(/\/+$/, '');
+                if (path.endsWith('index.html') || path === '') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
