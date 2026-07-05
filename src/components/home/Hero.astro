@@ -5,12 +5,15 @@ import ContactButtons from './ContactButtons.astro';
 <div class="relative flex flex-col">
   <div class="relative z-[1] flex justify-between items-end gap-[316px] px-[80px] mt-[174px] flex-nowrap">
     <!-- Left: Name + Tagline -->
-    <div class="flex flex-col gap-0 grow">
+    <div class="flex flex-col gap-0 grow hero-char-reveal-root">
       <!-- "Hey, I'm" + Avatar + "Zack." -->
-      <div id="introHover" data-reveal class="w-[640px] flex items-end gap-[16px] group">
-        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Hey, I&rsquo;m</div>
+      <div id="introHover" class="w-[640px] flex items-end gap-[16px] group">
+        <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label="Hey, I'm">
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">H</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">,</span></span>
+          <span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span><span class="hero-char" aria-hidden="true">&rsquo;</span><span class="hero-char" aria-hidden="true">m</span></span>
+        </div>
         <!-- Avatar swap on hover -->
-        <div class="w-[96px] h-[96px] shrink-0 flex items-center justify-center relative">
+        <div class="hero-avatar-unit w-[96px] h-[96px] shrink-0 flex items-center justify-center relative">
           <img src="/assets/avatar2.png" alt="Avatar"
             class="absolute inset-0 w-full h-full object-cover rotate-0 scale-0 transition-transform duration-[200ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:duration-[800ms] group-hover:[transition-timing-function:cubic-bezier(.34,1.56,.64,1)] [will-change:transform] group-hover:scale-100" />
           <img src="/assets/avatar.png" alt="Avatar"
@@ -19,7 +22,9 @@ import ContactButtons from './ContactButtons.astro';
         <!-- "Zack." with glow -->
         <div id="zackTitle"
           class="group relative text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/90 origin-left inline-block [will-change:transform]">
-          <span class="relative z-0">Zack.</span>
+          <span class="relative z-0 hero-char-word" aria-label="Zack.">
+            <span class="hero-char" aria-hidden="true">Z</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">k</span><span class="hero-char" aria-hidden="true">.</span>
+          </span>
           <span aria-hidden="true"
             class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
           >Zack.</span>
@@ -27,12 +32,19 @@ import ContactButtons from './ContactButtons.astro';
       </div>
 
       <!-- "I design for Media Ecology. Grounding Philosophy. Crafting Systems." -->
-      <div data-reveal data-reveal-delay="220" class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">
-        I design for
+      <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40" aria-label="I design for Media Ecology. Grounding Philosophy. Crafting Systems.">
+        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">I</span></span>
+        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">g</span><span class="hero-char" aria-hidden="true">n</span></span>
+        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">r</span></span>
+        {' '}
         <!-- Media Ecology -->
         <span id="mediaEcologyGroup" class="relative inline-block text-black/90 group">
           <span class="relative inline-block align-middle">
-            <span class="relative z-0">Media Ecology.</span>
+            <span class="relative z-0 hero-char-word" aria-label="Media Ecology.">
+              <span class="hero-char" aria-hidden="true">M</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">a</span>
+              <span class="hero-char" aria-hidden="true">&nbsp;</span>
+              <span class="hero-char" aria-hidden="true">E</span><span class="hero-char" aria-hidden="true">c</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">g</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
+            </span>
             <span aria-hidden="true"
               class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
             >Media Ecology.</span>
@@ -46,10 +58,14 @@ import ContactButtons from './ContactButtons.astro';
               class="absolute bottom-[-30px] left-[50%] -translate-x-1/2 w-[36px] h-[36px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleC_18000ms_ease-in-out_infinite] [animation-delay:1200ms]" />
           </span>
         </span>
-        {' '}Grounding{' '}
+        {' '}
+        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">G</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">u</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">d</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
+        {' '}
         <!-- Philosophy -->
         <span class="relative inline-block text-black/90 group align-middle">
-          <span class="relative z-0">Philosophy.</span>
+          <span class="relative z-0 hero-char-word" aria-label="Philosophy.">
+            <span class="hero-char" aria-hidden="true">P</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">l</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">o</span><span class="hero-char" aria-hidden="true">p</span><span class="hero-char" aria-hidden="true">h</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">.</span>
+          </span>
           <span aria-hidden="true"
             class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
           >Philosophy.</span>
@@ -62,10 +78,14 @@ import ContactButtons from './ContactButtons.astro';
               class="absolute top-[-10px] left-[58%] w-[34px] h-[34px] rounded-full object-cover opacity-0 transition-opacity duration-[800ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-100 animate-[bubbleP3_19000ms_ease-in-out_infinite] [animation-delay:1400ms]" />
           </span>
         </span>
-        {' '}Crafting{' '}
+        {' '}
+        <span class="hero-char-word"><span class="hero-char" aria-hidden="true">C</span><span class="hero-char" aria-hidden="true">r</span><span class="hero-char" aria-hidden="true">a</span><span class="hero-char" aria-hidden="true">f</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">i</span><span class="hero-char" aria-hidden="true">n</span><span class="hero-char" aria-hidden="true">g</span></span>
+        {' '}
         <!-- Systems -->
         <span class="relative inline-block text-black/90 group align-middle">
-          <span class="relative z-0">Systems.</span>
+          <span class="relative z-0 hero-char-word" aria-label="Systems.">
+            <span class="hero-char" aria-hidden="true">S</span><span class="hero-char" aria-hidden="true">y</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">t</span><span class="hero-char" aria-hidden="true">e</span><span class="hero-char" aria-hidden="true">m</span><span class="hero-char" aria-hidden="true">s</span><span class="hero-char" aria-hidden="true">.</span>
+          </span>
           <span aria-hidden="true"
             class="absolute inset-0 z-20 pointer-events-none text-transparent bg-clip-text [-webkit-background-clip:text] [will-change:background-position] bg-[radial-gradient(circle_at_center,rgba(255,255,255,.55),rgba(255,255,255,0)_60%)] [background-size:180%_180%] [background-position:0%_50%] opacity-0 transition-opacity duration-[500ms] ease-[cubic-bezier(.4,0,.2,1)] group-hover:opacity-60 animate-[glowMove_10000ms_ease-in-out_infinite]"
           >Systems.</span>
@@ -106,6 +126,77 @@ import ContactButtons from './ContactButtons.astro';
     </div>
   </div>
 </div>
+
+<style>
+  /* ===== Desktop character reveal (769px+) ===== */
+  @media (min-width: 769px) {
+    .hero-char-reveal-root .hero-char {
+      opacity: 0;
+      transform: translateY(16px);
+      filter: blur(3px);
+      transition:
+        opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 650ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--hci, 0) * 14ms);
+    }
+
+    .hero-char-reveal-root.is-active .hero-char {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .hero-char-reveal-root .hero-avatar-unit {
+      opacity: 0;
+      transform: translateY(20px) scale(0.92);
+      filter: blur(4px);
+      transition:
+        opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 700ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--hci, 0) * 14ms);
+    }
+
+    .hero-char-reveal-root.is-active .hero-avatar-unit {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    /* Prevent word breaks between characters */
+    .hero-char-word {
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-char-reveal-root .hero-char,
+      .hero-char-reveal-root .hero-avatar-unit {
+        opacity: 1;
+        transform: none;
+        filter: none;
+        transition: none;
+        transition-delay: 0ms;
+      }
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    if (window.matchMedia('(max-width: 768px)').matches) return;
+    const root = document.querySelector('.hero-char-reveal-root');
+    if (!root) return;
+    // Assign sequential indices to all char + avatar units for staggered reveal
+    root.querySelectorAll('.hero-char, .hero-avatar-unit').forEach(function (el, i) {
+      el.style.setProperty('--hci', String(i));
+    });
+    requestAnimationFrame(function () {
+      root.classList.add('is-active');
+    });
+  })();
+</script>
 
 <!-- Zack Title Swing Animation Script -->
 <script>
