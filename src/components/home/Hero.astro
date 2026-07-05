@@ -42,7 +42,7 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
 <div class="relative flex flex-col">
   <div class="relative z-[1] flex justify-between items-end gap-[316px] px-[80px] mt-[174px] flex-nowrap">
     <!-- Left: Name + Tagline -->
-    <div class="flex flex-col gap-0 grow hero-char-reveal-root">
+    <div class={`flex flex-col gap-0 grow hero-char-reveal-root ${isZh ? 'hero-char-reveal-zh' : 'hero-char-reveal-en'}`}>
       <!-- "Hey, I'm" + Avatar + "Zack." -->
       <div id="introHover" class={isZh ? 'flex items-end gap-[16px] group' : 'w-[640px] flex items-end gap-[16px] group'}>
         <div class={isZh ? 'text-[80px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40 whitespace-nowrap' : 'text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40 whitespace-nowrap'} aria-label={hey}>
@@ -297,6 +297,37 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
       display: inline-block;
       line-height: inherit;
       vertical-align: baseline;
+    }
+
+    /* ── Chinese: slower, more fluid reveal ── */
+    .hero-char-reveal-zh .hero-char {
+      transform: translateY(20px);
+      filter: blur(4px);
+      transition:
+        opacity 1250ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1250ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1250ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--hci, 0) * 42ms);
+    }
+
+    .hero-char-reveal-zh.is-active .hero-char {
+      transform: translateY(0);
+      filter: blur(0);
+    }
+
+    .hero-char-reveal-zh .hero-avatar-unit {
+      transform: translateY(22px) scale(0.92);
+      filter: blur(4px);
+      transition:
+        opacity 1350ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1350ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 1350ms cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: calc(var(--hci, 0) * 42ms);
+    }
+
+    .hero-char-reveal-zh.is-active .hero-avatar-unit {
+      transform: translateY(0) scale(1);
+      filter: blur(0);
     }
 
     @media (prefers-reduced-motion: reduce) {
