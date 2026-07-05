@@ -1,0 +1,20 @@
+---
+// MobileHome.astro — Mobile homepage layout
+import MobileNavbar from './MobileNavbar.astro';
+import MobileHero from './MobileHero.astro';
+import MobileProductSection from './MobileProductSection.astro';
+import MobileSystemSection from './MobileSystemSection.astro';
+import MobileExplorationSection from './MobileExplorationSection.astro';
+import MobileFooter from './MobileFooter.astro';
+---
+
+<div class="mobile-home mx-auto w-full max-w-[768px] overflow-x-hidden bg-[#F0F0F0] font-geist text-black">
+  <MobileNavbar />
+  <main class="flex flex-col">
+    <MobileHero />
+    <MobileProductSection />
+    <MobileSystemSection />
+    <MobileExplorationSection />
+    <MobileFooter />
+  </main>
+</div>

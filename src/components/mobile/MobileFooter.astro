@@ -1,0 +1,12 @@
+---
+// MobileFooter.astro — Mobile footer
+---
+
+<footer class="px-[32px] py-[24px] flex flex-col gap-[16px] bg-[#F0F0F0]">
+  <div class="text-black/90 text-[28px] font-geist leading-[1.3]">Ready to build something that shapes us? Let&rsquo;s talk.</div>
+  <div class="text-black/50 text-[28px] font-geist">Chengke Zha &copy; <span id="mobile-copyright-year">2025</span></div>
+</footer>
+
+<script>
+  document.getElementById('mobile-copyright-year').textContent = new Date().getFullYear();
+</script>

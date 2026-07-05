@@ -3,15 +3,17 @@
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import MobilePlaceholder from './MobilePlaceholder.astro';
+import MobileHome from '../mobile/MobileHome.astro';
 import '../../styles/global.css';
 import '../../styles/animations.css';
 
 export interface Props {
   title?: string;
   showAmbient?: boolean;
+  isHome?: boolean;
 }
 
-const { title = 'Portfolio', showAmbient = false } = Astro.props;
+const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -40,7 +42,7 @@ const { title = 'Portfolio', showAmbient = false } = Astro.props;
 
     <!-- Mobile layout -->
     <div id="mobile-layout" class="mobile-layout">
-      <MobilePlaceholder />
+      {isHome ? <MobileHome /> : <MobilePlaceholder />}
     </div>
 
     <script>
@@ -53,7 +55,7 @@ const { title = 'Portfolio', showAmbient = false } = Astro.props;
         if (!host || !stage) return;
 
         const width = window.innerWidth;
-        if (width < MOBILE_BREAKPOINT) return;
+        if (width <= MOBILE_BREAKPOINT) return;
 
         const scale = Math.min(1, width / DESIGN_WIDTH);
         document.documentElement.style.setProperty('--desktop-scale', String(scale));
