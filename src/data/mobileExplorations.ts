@@ -16,7 +16,7 @@ export const mobileExplorations: MobileExploration[] = [
     },
     description: {
       en: 'Crafting a futuristic, multisensory system theme experience for HarmonyOS.',
-      zh: '为 HarmonyOS 打造一个面向未来的多感官系统主题体验。',
+      zh: '为华为 HarmonyOS 打造一个面向未来的多感官系统主题体验。',
     },
     image: '/assets/mobile-exploration-1.png',
     alt: { en: 'Calien: My capstone project at PolyU', zh: 'Calien — 理大毕业设计' },
@@ -54,7 +54,7 @@ export const mobileExplorations: MobileExploration[] = [
     id: 'aura',
     title: {
       en: 'Aura: Social APP for Prime Time',
-      zh: '闪闪发光：熟龄人群的社交应用',
+      zh: '闪闪发光：熟龄人群社交应用',
     },
     description: {
       en: 'An inspiring community for older adults to connect, share wisdom, and spark new passions.',

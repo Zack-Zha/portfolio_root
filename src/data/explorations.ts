@@ -18,7 +18,7 @@ export const explorations: Exploration[] = [
     },
     description: {
       en: 'Crafting a futuristic, multisensory system theme experience for HarmonyOS.',
-      zh: '为 HarmonyOS 打造一个面向未来的多感官系统主题体验。',
+      zh: '为华为 HarmonyOS 打造一个面向未来的多感官系统主题体验。',
     },
     image: '/assets/exploration1.png',
     logo: '/assets/logo_huawei.png',
@@ -30,7 +30,7 @@ export const explorations: Exploration[] = [
     id: 'aura',
     title: {
       en: 'Aura: Social Community for Prime Time',
-      zh: '闪闪发光：熟龄人群的社交社区',
+      zh: '闪闪发光：熟龄人群社交社区',
     },
     description: {
       en: 'An inspiring community for older adults to connect, share wisdom, and spark new passions.',
@@ -38,7 +38,7 @@ export const explorations: Exploration[] = [
     },
     image: '/assets/exploration2.png',
     logo: '/assets/logo_aura.png',
-    alt: { en: 'Aura: Social Community for Prime Time', zh: '闪闪发光：熟龄人群的社交社区' },
+    alt: { en: 'Aura: Social Community for Prime Time', zh: '闪闪发光：熟龄人群社交社区' },
     logoAlt: 'Aura logo',
     href: '#',
   },

@@ -8,8 +8,8 @@ export interface Props {
 }
 
 const { locale = 'en' } = Astro.props;
-const tagline = l(t.footer.tagline, locale);
-const name = l(t.footer.name, locale);
+const tagline = t.footer.tagline.en;
+const name = t.footer.name.en;
 ---
 
 <footer class="w-full">
