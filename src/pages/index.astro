@@ -74,74 +74,113 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
    * Reveal animation system — IntersectionObserver with stagger support.
    *
    * Markup:
-   *   <div data-reveal>Single element</div>
-   *   <div data-reveal-group="220">
-   *     <div data-reveal>Child 1</div>
+   *   <div data-reveal>Standalone element</div>
+   *
+   *   <div data-reveal-group="240">
+   *     <div data-reveal>Child 1</div>   ← must be DIRECT child of group
    *     <div data-reveal>Child 2</div>
    *   </div>
    *
    * Per-element overrides:
    *   data-reveal-delay="440"       Override stagger delay (ms)
-   *   data-reveal-duration="900"    Transition duration (ms)
-   *   data-reveal-y="20"            TranslateY offset (px)
-   *   data-reveal-blur="4"          Blur amount (px)
+   *   data-reveal-duration="1100"   Transition duration (ms)
+   *   data-reveal-y="36"            TranslateY offset (px)
+   *   data-reveal-blur="5"          Blur amount (px)
    *   data-reveal-no-blur           Disable blur (for elements with backdrop-filter)
+   *   data-reveal-reset-transform   Clean up compositor layer after animation
+   *
+   * Group behavior:
+   *   When ANY child of a group enters the viewport, ALL children in that group
+   *   are revealed in DOM order with the group's stagger interval.
+   *   The group is then locked (data-reveal-group-processed) so it never fires again.
    */
-  const STAGGER_DEFAULT = 220;
+
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  // Mobile: slower, softer defaults for a relaxed reading rhythm
+  const DEFAULTS = {
+    duration: isMobile ? 1150 : 1150,
+    y:        isMobile ? 36   : 32,
+    blur:     isMobile ? 5    : 8,
+    stagger:  isMobile ? 240  : 220,
+    ease:     'cubic-bezier(0.22, 1, 0.36, 1)',
+  };
 
   function applyReveal(el, delayMs) {
     if (el.dataset.revealDelay !== undefined) {
       delayMs = parseInt(el.dataset.revealDelay, 10);
     }
 
-    const durationMs = el.dataset.revealDuration !== undefined
+    const duration = el.dataset.revealDuration !== undefined
       ? parseInt(el.dataset.revealDuration, 10)
-      : 1150;
+      : DEFAULTS.duration;
 
-    if (el.dataset.revealDuration !== undefined) {
-      el.style.setProperty('--reveal-duration', durationMs + 'ms');
-    }
-    if (el.dataset.revealY !== undefined) {
-      el.style.setProperty('--reveal-y', el.dataset.revealY + 'px');
-    }
-    if (el.dataset.revealBlur !== undefined) {
-      el.style.setProperty('--reveal-blur', el.dataset.revealBlur + 'px');
-    }
-    el.style.setProperty('--reveal-delay', delayMs + 'ms');
+    const y = el.dataset.revealY !== undefined
+      ? parseInt(el.dataset.revealY, 10)
+      : DEFAULTS.y;
+
+    const blur = el.dataset.revealBlur !== undefined
+      ? parseInt(el.dataset.revealBlur, 10)
+      : DEFAULTS.blur;
+
+    el.style.setProperty('--reveal-duration', duration + 'ms');
+    el.style.setProperty('--reveal-y', y + 'px');
+    el.style.setProperty('--reveal-blur', blur + 'px');
+    el.style.setProperty('--reveal-ease', DEFAULTS.ease);
+    el.style.setProperty('--reveal-delay', String(delayMs) + 'ms');
     el.classList.add('is-revealed');
 
-    // After animation finishes, clean up transform for reset-transform elements
-    // so they don't retain a compositor layer that pollutes backdrop-filter
+    // Clean up compositor layer for reset-transform elements after animation
     if (el.hasAttribute('data-reveal-reset-transform')) {
       setTimeout(function () {
         el.classList.add('reveal-complete');
-      }, delayMs + durationMs + 80);
+      }, delayMs + duration + 80);
     }
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
+  /**
+   * Process a group: stagger-reveal all direct [data-reveal] children.
+   * Idempotent — second call is a no-op.
+   */
+  function processGroup(group) {
+    if (group.dataset.revealGroupProcessed === '1') return;
+    group.dataset.revealGroupProcessed = '1';
+
+    const staggerMs = parseInt(group.getAttribute('data-reveal-group'), 10) || DEFAULTS.stagger;
+    const children = group.querySelectorAll(':scope > [data-reveal]');
+
+    children.forEach(function (child, i) {
+      if (child.classList.contains('is-revealed')) return;
+      applyReveal(child, i * staggerMs);
+    });
+
+    // Unobserve all children — they are now handled
+    children.forEach(function (c) { revealObserver.unobserve(c); });
+  }
+
+  var revealObserver = new IntersectionObserver(
+    function (entries) {
+      for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
         if (!entry.isIntersecting) continue;
-        const el = entry.target;
 
-        const group = el.closest('[data-reveal-group]');
-        if (group && !group.dataset.revealGroupProcessed) {
-          group.dataset.revealGroupProcessed = '1';
-          const staggerMs =
-            parseInt(group.getAttribute('data-reveal-group') || '', 10) ||
-            STAGGER_DEFAULT;
-          const children = group.querySelectorAll(':scope > [data-reveal]');
-          children.forEach((child, i) => applyReveal(child, i * staggerMs));
-        } else if (!group) {
+        var el = entry.target;
+        var group = el.closest('[data-reveal-group]');
+
+        if (group) {
+          // Element belongs to a group — fire the whole group once
+          processGroup(group);
+        } else {
+          // Standalone element — reveal on its own
           applyReveal(el, 0);
+          revealObserver.unobserve(el);
         }
-
-        observer.unobserve(el);
       }
     },
-    { threshold: 0.12, rootMargin: '0px 0px -10% 0px' }
+    { threshold: 0.10, rootMargin: '0px 0px -6% 0px' }
   );
 
-  document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+  document.querySelectorAll('[data-reveal]').forEach(function (el) {
+    revealObserver.observe(el);
+  });
 </script>
