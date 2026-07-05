@@ -1,5 +1,6 @@
 ---
 // SystemResearchSection.astro — System + Research side-by-side
+import ProjectInfoRow from '@/components/common/ProjectInfoRow.astro';
 ---
 
 <div data-reveal-group="220" class="flex px-[80px] justify-between items-center self-stretch">
@@ -8,12 +9,16 @@
     <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">System.</div>
     <div class="flex flex-col gap-[24px]">
       <div class="w-[1146px] h-[644px] overflow-hidden rounded-[56px]">
-        <img src="/assets/system.png" alt="WeChat Store B-end Design System - WeChat"
+        <img src="/assets/system.png" alt="WeChat Shop B-End Design System"
           class="w-[1146px] h-[644px] object-cover" />
       </div>
-      <div class="text-[24px] leading-[1.3em] text-black/40">
-        <span class="text-black">WeChat Store B-end Design System</span> - WeChat
-      </div>
+      <ProjectInfoRow
+        logo="/assets/logo_wechatshop.png"
+        logoAlt="WeChat Shop logo"
+        title="WeChat Shop B-End Design System"
+        description="Establishing unified notification design guidelines for WeChat Shop&rsquo;s merchant platform, helping users manage complex messages with clarity and ease."
+        logoClass="rounded-[100px]"
+      />
     </div>
   </div>
   <!-- Research -->
@@ -21,12 +26,16 @@
     <div class="text-[72px] leading-[1.3em] tracking-[-0.03em] font-medium text-black/40">Research.</div>
     <div class="flex flex-col gap-[24px]">
       <div class="w-[532px] h-[644px] overflow-hidden rounded-[56px]">
-        <img src="/assets/research.png" alt="SUPER UX Measurement Model - Midea"
+        <img src="/assets/research.png" alt="The SUPER UX Model - Midea"
           class="w-[532px] h-[644px] object-cover" />
       </div>
-      <div class="text-[24px] leading-[1.3em] text-black/40">
-        <span class="text-black">SUPER UX Measurement Model</span> - Midea
-      </div>
+      <ProjectInfoRow
+        logo="/assets/logo_midea.png"
+        logoAlt="Midea logo"
+        title="The SUPER UX Model"
+        description="A measurement framework to help Midea quantify and improve home appliance UX."
+        logoClass="rounded-[1000px] bg-[#0092D7]"
+      />
     </div>
   </div>
 </div>

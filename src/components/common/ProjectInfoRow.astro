@@ -1,0 +1,28 @@
+---
+// ProjectInfoRow.astro — Shared logo + title + description row
+export interface Props {
+  logo: string;
+  logoAlt: string;
+  title: string;
+  description: string;
+  logoClass?: string;
+}
+
+const { logo, logoAlt, title, description, logoClass = '' } = Astro.props;
+---
+
+<div class="self-stretch inline-flex justify-start items-center gap-[16px]">
+  <img
+    src={logo}
+    alt={logoAlt}
+    class={`w-[96px] h-[96px] object-contain shrink-0 ${logoClass}`}
+  />
+  <div class="flex-1 inline-flex flex-col justify-start items-start gap-[8px]">
+    <div class="self-stretch text-black/80 text-[24px] font-medium font-['Geist'] capitalize leading-[1.3em]">
+      {title}
+    </div>
+    <div class="self-stretch text-black/40 text-[20px] font-normal font-['Geist'] leading-[1.3em]">
+      {description}
+    </div>
+  </div>
+</div>
