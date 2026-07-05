@@ -101,7 +101,8 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
           if (navbarHost) {
             const navbarStage = navbarHost.querySelector('.mobile-navbar-stage');
             if (navbarStage) {
-              navbarHost.style.height = (navbarStage.scrollHeight * scale) + 'px';
+              const height = navbarStage.scrollHeight || 144;
+              navbarHost.style.height = (height * scale) + 'px';
             }
           }
         });
