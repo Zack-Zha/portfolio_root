@@ -63,6 +63,7 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
       function syncDesktopScale() {
         const host = document.getElementById('desktop-scale-host');
         const stage = document.getElementById('desktop-stage');
+        const header = document.getElementById('desktop-header');
         if (!host || !stage) return;
 
         const width = window.innerWidth;
@@ -73,6 +74,12 @@ const { title = 'Portfolio', showAmbient = false, isHome = false } = Astro.props
 
         requestAnimationFrame(() => {
           host.style.height = (stage.scrollHeight * scale) + 'px';
+          if (header) {
+            const frame = header.querySelector('.desktop-header-frame');
+            if (frame) {
+              header.style.height = (frame.scrollHeight * scale) + 'px';
+            }
+          }
         });
       }
 
