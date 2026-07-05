@@ -288,6 +288,15 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
 
     .hero-char-space {
       width: 0.28em;
+      overflow: hidden;
+    }
+
+    /* Unified display model for #zackTitle visible + glow layers */
+    #zackTitle .hero-char,
+    #zackTitle .hero-glow-char {
+      display: inline-block;
+      line-height: inherit;
+      vertical-align: baseline;
     }
 
     @media (prefers-reduced-motion: reduce) {

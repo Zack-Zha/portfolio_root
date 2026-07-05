@@ -2,7 +2,7 @@ export type Locale = 'en' | 'zh';
 
 export const t = {
   header: {
-    name: { en: 'Chengke Zha', zh: '查承科' } as const,
+    name: { en: 'Chengke Zha', zh: '查成柯' } as const,
     work: { en: 'Work', zh: '作品' } as const,
     gallery: { en: 'Gallery', zh: '图像' } as const,
     about: { en: 'About', zh: '关于' } as const,
@@ -63,10 +63,10 @@ export const t = {
       en: "Ready to build something that shapes us? Let's talk.",
       zh: '想一起做点会塑造我们的东西吗？来聊聊。',
     } as const,
-    name: { en: 'Chengke Zha', zh: '查承科' } as const,
+    name: { en: 'Chengke Zha', zh: '查成柯' } as const,
   },
   mobileNav: {
-    name: { en: 'Zha Chengke', zh: '查承科' } as const,
+    name: { en: 'Zha Chengke', zh: '查成柯' } as const,
   },
 } as const;
 
