@@ -4,7 +4,7 @@ export const t = {
   header: {
     name: { en: 'Chengke Zha', zh: '查成柯' } as const,
     work: { en: 'Work', zh: '作品' } as const,
-    gallery: { en: 'Gallery', zh: '图像' } as const,
+    gallery: { en: 'Gallery', zh: '画廊' } as const,
     about: { en: 'About', zh: '关于' } as const,
   },
   hero: {
@@ -26,14 +26,18 @@ export const t = {
   infoBar: {
     currentLabel: { en: 'Current', zh: '现于' } as const,
     current: { en: 'Tencent — WeChat Design Team', zh: '腾讯 — 微信设计团队' } as const,
-    role: { en: 'Product Experience Designer', zh: '产品体验设计师' } as const,
-    roleSuffix: { en: '(Intern)', zh: '（实习）' } as const,
-    currentFull: { en: 'Current: Tencent - WeChat Design Team', zh: '现于：腾讯 — 微信设计团队' } as const,
-    roleFull: { en: 'Role: Product Experience Designer', zh: '职责：产品体验设计师' } as const,
     phoneLabel: { en: 'Phone (WeChat)', zh: '电话（微信）' } as const,
     emailLabel: { en: 'E-mail', zh: '邮箱' } as const,
     educationLabel: { en: 'Education', zh: '教育经历' } as const,
     education: { en: 'M.Sc. in Interaction Design, PolyU', zh: '香港理工大学 交互设计硕士' } as const,
+    desktopLine1: {
+      en: 'Current: Tencent — WeChat Design Team',
+      zh: '就职：腾讯微信设计团队 - 体验设计师',
+    } as const,
+    desktopLine2: {
+      en: 'Education: M.Sc. in Interaction Design, PolyU',
+      zh: '学历：香港理工大学 - 设计硕士',
+    } as const,
   },
   sections: {
     product: { en: 'Product.', zh: '产品。' } as const,

@@ -28,12 +28,8 @@ const taglineEnd = l(t.hero.taglineEnd, locale);
 const taglineAria = l(t.hero.taglineAriaLabel, locale);
 
 // Info bar
-const currentLabel = l(t.infoBar.currentLabel, locale);
-const currentVal = l(t.infoBar.current, locale);
-const currentFull = l(t.infoBar.currentFull, locale);
-const roleVal = l(t.infoBar.role, locale);
-const roleSuffix = l(t.infoBar.roleSuffix, locale);
-const roleFull = l(t.infoBar.roleFull, locale);
+const desktopLine1 = l(t.infoBar.desktopLine1, locale);
+const desktopLine2 = l(t.infoBar.desktopLine2, locale);
 const phoneLabel = l(t.infoBar.phoneLabel, locale);
 const emailLabel = l(t.infoBar.emailLabel, locale);
 
@@ -198,11 +194,10 @@ const emailLabel = l(t.infoBar.emailLabel, locale);
   <div data-reveal data-reveal-delay="1850" class="relative z-[1] self-stretch px-20 inline-flex justify-between items-center mt-[96px]">
     <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
       <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
-        {currentFull}
+        {desktopLine1}
       </div>
-      <div class="self-stretch justify-start">
-        <span class="text-black/90 text-xl font-normal font-['Geist']">{roleFull}</span>
-        <span class="text-black/40 text-xl font-normal font-['Geist']"> {roleSuffix}</span>
+      <div class="self-stretch justify-start text-black/90 text-xl font-normal font-['Geist']">
+        {desktopLine2}
       </div>
     </div>
     <div class="flex-1 inline-flex flex-col justify-start items-start gap-3">
