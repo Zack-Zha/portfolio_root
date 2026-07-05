@@ -1,0 +1,24 @@
+name: Request GitHub Pages deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: request-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  request-deploy:
+    name: Trigger Zack-Zha.github.io deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Pages repository workflow
+        env:
+          GH_TOKEN: ${{ secrets.PAGES_REPO_DISPATCH_TOKEN }}
+        run: |
+          gh api repos/Zack-Zha/Zack-Zha.github.io/dispatches \
+            --method POST \
+            -f event_type=deploy-portfolio
