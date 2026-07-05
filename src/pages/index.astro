@@ -14,14 +14,16 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
 </SiteLayout>
 
 <style is:global>
+  /* ===== Reveal Animation System ===== */
+
   [data-reveal] {
     opacity: 0;
-    transform: translateY(var(--reveal-y, 28px));
-    filter: blur(var(--reveal-blur, 6px));
+    transform: translateY(var(--reveal-y, 32px));
+    filter: blur(var(--reveal-blur, 8px));
     transition:
-      opacity var(--reveal-duration, 800ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)),
-      transform var(--reveal-duration, 800ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)),
-      filter var(--reveal-duration, 800ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1));
+      opacity var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+      transform var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1)),
+      filter var(--reveal-duration, 1150ms) var(--reveal-ease, cubic-bezier(0.22, 1, 0.36, 1));
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -29,6 +31,11 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
+  }
+
+  /* No-blur mode — for elements with internal backdrop-filter (e.g. ProjectCard) */
+  [data-reveal][data-reveal-no-blur] {
+    --reveal-blur: 0px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -46,12 +53,19 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
    *
    * Markup:
    *   <div data-reveal>Single element</div>
-   *   <div data-reveal-group="120">
+   *   <div data-reveal-group="220">
    *     <div data-reveal>Child 1</div>
    *     <div data-reveal>Child 2</div>
    *   </div>
+   *
+   * Per-element overrides:
+   *   data-reveal-delay="440"       Override stagger delay (ms)
+   *   data-reveal-duration="900"    Transition duration (ms)
+   *   data-reveal-y="20"            TranslateY offset (px)
+   *   data-reveal-blur="4"          Blur amount (px)
+   *   data-reveal-no-blur           Disable blur (for elements with backdrop-filter)
    */
-  const STAGGER_DEFAULT = 100;
+  const STAGGER_DEFAULT = 220;
 
   function applyReveal(el, delayMs) {
     if (el.dataset.revealDelay !== undefined) {
@@ -91,7 +105,7 @@ import ExplorationSection from '@/components/home/ExplorationSection.astro';
         observer.unobserve(el);
       }
     },
-    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    { threshold: 0.12, rootMargin: '0px 0px -10% 0px' }
   );
 
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
